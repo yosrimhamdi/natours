@@ -91,4 +91,18 @@ const restrictTo = (...roles) => {
   };
 };
 
-module.exports = { signup, login, protect, restrictTo };
+const forgotPassword = catchAsync(async (req, res, next) => {
+  const user = await User.findOne({ email: req.body.email });
+
+  if (!user) {
+    return next(new AppError('invalid email.', 404));
+  }
+
+  const resetToken = user.createResetToken();
+
+  user.save({ validateBeforeSave: false });
+
+  console.log(resetToken);
+});
+
+module.exports = { signup, login, protect, restrictTo, forgotPassword };
