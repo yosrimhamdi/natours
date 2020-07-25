@@ -52,7 +52,7 @@ const protect = catchAsync(async (req, res, next) => {
   // 1- Getting token and check of it's there
   let token = req.headers.authorization;
 
-  if (token.startsWith('Bearer ')) {
+  if (token && token.startsWith('Bearer ')) {
     token = token.substring(7);
   } else {
     return next(new AppError('Unauthorized, please login to get access.', 401));
@@ -127,7 +127,7 @@ const forgotPassword = catchAsync(async (req, res, next) => {
       message,
     });
   } catch (err) {
-    user.cancelPasswordReset();
+    await user.cancelPasswordReset();
 
     return next(new AppError('failed to rest password', 500));
   }
@@ -165,7 +165,28 @@ const resetPassword = catchAsync(async (req, res, next) => {
 //for logged in users
 //NOTE: THIS IS A PROTECTED MIDDLEWARE, FOR LOGGED IN USERS
 const updatePassword = catchAsync(async (req, res, next) => {
+  const { id } = req.user;
   const { oldPassword, newPassword, passwordConfirm } = req.body;
+
+  if (!oldPassword) return next(new AppError('you must provide your old password.', 401));
+
+  // 1- search user again
+  //we need to .select('password') in order to access this.password in validtePassword()
+  const user = await User.findById(id).select('password');
+
+  // 2- check password if it is correct
+  const isValidPassword = await user.validatePassword(oldPassword);
+
+  if (!isValidPassword) return next(new AppError('invalid password.', 401));
+
+  // 3- update password
+  await user.updatePassword(newPassword, passwordConfirm);
+
+  // 4- login user (new token)
+  res.json({
+    status: 'success',
+    token: createToken({ id }),
+  });
 });
 
 module.exports = {

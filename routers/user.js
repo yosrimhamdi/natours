@@ -15,6 +15,6 @@ router.get('/login', login); // get a JWT
 router.post('/forgotPassword', forgotPassword);
 router.patch('/resetPassword/:token', resetPassword);
 
-router.route('/:token').patch(protect, updatePassword);
+router.route('/').patch(protect, updatePassword);
 
 module.exports = router;

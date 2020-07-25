@@ -65,8 +65,8 @@ userSchema.pre('save', function (next) {
   next();
 });
 
-userSchema.methods.validatePassword = async function (password) {
-  return await bcrypt.compare(password, this.password);
+userSchema.methods.validatePassword = function (password) {
+  return bcrypt.compare(password, this.password);
 };
 
 userSchema.methods.isPassChangedAfterJWTcreation = function (iat) {
@@ -89,25 +89,29 @@ userSchema.methods.createResetToken = async function () {
   return resetToken;
 };
 
-userSchema.methods.cancelPasswordReset = async function () {
+userSchema.methods.cancelPasswordReset = function () {
   this.passwordResetToken = undefined;
   this.passwordRestExpiresIn = undefined;
 
-  await this.save({ validateBeforeSave: false });
+  return this.save({ validateBeforeSave: false });
 };
 
 userSchema.methods.isExpiredResetToken = function () {
   return this.passwordRestExpiresIn < Date.now();
 };
 
-userSchema.methods.resetPassword = async function (password, passwordConfirm) {
-  this.password = password;
-  this.passwordConfirm = passwordConfirm;
-
+userSchema.methods.resetPassword = function (password, passwordConfirm) {
   this.passwordRestExpiresIn = undefined;
   this.passwordResetToken = undefined;
 
-  return await this.save();
+  this.updatePassword(password, passwordConfirm);
+};
+
+userSchema.methods.updatePassword = function (password, passwordConfirm) {
+  this.password = password;
+  this.passwordConfirm = passwordConfirm;
+
+  return this.save();
 };
 
 const User = mongoose.model('User', userSchema);
