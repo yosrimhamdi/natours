@@ -80,6 +80,11 @@ userSchema.methods.createResetToken = function () {
   return resetToken;
 };
 
+userSchema.methods.cancelPasswordReset = function () {
+  this.passwordResetToken = undefined;
+  this.passwordRestExpiresIn = undefined;
+};
+
 const User = mongoose.model('User', userSchema);
 
 module.exports = User;

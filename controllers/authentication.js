@@ -2,6 +2,7 @@ const AppError = require('../errors/appError');
 const User = require('../models/user');
 const catchAsync = require('../errors/catchAsync');
 const { createToken, verifyToken } = require('../utils/jwt');
+const sendMail = require('../utils/email');
 
 const signup = catchAsync(async (req, res) => {
   // const { name, email, password, passwordConfirm } = req.body;
@@ -100,9 +101,39 @@ const forgotPassword = catchAsync(async (req, res, next) => {
 
   const resetToken = user.createResetToken();
 
-  user.save({ validateBeforeSave: false });
+  await user.save({ validateBeforeSave: false });
 
-  console.log(resetToken);
+  const resetURL = `${req.protocol}://${req.get('host')}/resetPassword/${resetToken}`;
+
+  const message = `submit a PATCH request with new password and passwordConfirm to: ${resetURL}`;
+
+  try {
+    await sendMail({
+      to: user.email,
+      subject: 'reset password link (valid for 10min).',
+      message,
+    });
+  } catch (err) {
+    user.cancelPasswordReset();
+
+    await user.save({ validateBeforeSave: false });
+
+    return next(new AppError('failed to rest password', 500));
+  }
+
+  res.status(200).json({
+    status: 'success',
+    message: 'check your email',
+  });
 });
 
-module.exports = { signup, login, protect, restrictTo, forgotPassword };
+const resetPassword = (req, res, next) => {};
+
+module.exports = {
+  signup,
+  login,
+  protect,
+  restrictTo,
+  forgotPassword,
+  resetPassword,
+};
