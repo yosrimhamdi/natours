@@ -6,11 +6,10 @@ const { createToken, verifyToken } = require('../utils/jwt');
 const sendMail = require('../utils/email');
 
 const signup = catchAsync(async (req, res) => {
-  // const { name, email, password, passwordConfirm } = req.body;
-
-  // const user = await User.create({ name, email, password, passwordConfirm });
+  // 1- create a user
   const user = await User.create(req.body);
 
+  // 2- login user
   const token = createToken({ id: user._id });
 
   res.status(201).json({
@@ -140,7 +139,7 @@ const forgotPassword = catchAsync(async (req, res, next) => {
 const resetPassword = catchAsync(async (req, res, next) => {
   const { password, passwordConfirm } = req.body;
 
-  // 1- get user base on token(crypt it and compare).
+  // 1- get user based on token(crypt it and compare).
   const hashedToken = crypto.createHash('sha256').update(req.params.token).digest('hex');
 
   // 2- if there is a user the and token has not expired set new Password.
