@@ -4,8 +4,9 @@ const {
   login,
   forgotPassword,
   resetPassword,
+  updatePassword,
+  protect,
 } = require('../controllers/authentication');
-const { getUsers } = require('../controllers/user');
 
 const router = express.Router();
 
@@ -14,6 +15,6 @@ router.get('/login', login); // get a JWT
 router.post('/forgotPassword', forgotPassword);
 router.patch('/resetPassword/:token', resetPassword);
 
-router.route('/').get(getUsers);
+router.route('/:token').patch(protect, updatePassword);
 
 module.exports = router;

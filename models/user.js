@@ -107,7 +107,7 @@ userSchema.methods.resetPassword = async function (password, passwordConfirm) {
   this.passwordRestExpiresIn = undefined;
   this.passwordResetToken = undefined;
 
-  await this.save();
+  return await this.save();
 };
 
 const User = mongoose.model('User', userSchema);

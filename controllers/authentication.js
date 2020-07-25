@@ -46,6 +46,8 @@ const login = catchAsync(async (req, res, next) => {
   res.status(200).json({ status: 'success', token });
 });
 
+//this middleware is applicable wheneven you want to protect the route handler
+//meaning: when you want to make sure that the user is logged in!
 const protect = catchAsync(async (req, res, next) => {
   // 1- Getting token and check of it's there
   let token = req.headers.authorization;
@@ -149,7 +151,7 @@ const resetPassword = catchAsync(async (req, res, next) => {
 
   if (user.isExpiredResetToken()) return next(new AppError('expired token.', 401));
 
-  user.resetPassword(password, passwordConfirm);
+  await user.resetPassword(password, passwordConfirm);
 
   // 3- update passwordChangedAt prop. (auto using .pre('save'))
 
@@ -160,6 +162,12 @@ const resetPassword = catchAsync(async (req, res, next) => {
   });
 });
 
+//for logged in users
+//NOTE: THIS IS A PROTECTED MIDDLEWARE, FOR LOGGED IN USERS
+const updatePassword = catchAsync(async (req, res, next) => {
+  const { oldPassword, newPassword, passwordConfirm } = req.body;
+});
+
 module.exports = {
   signup,
   login,
@@ -167,4 +175,5 @@ module.exports = {
   restrictTo,
   forgotPassword,
   resetPassword,
+  updatePassword,
 };
