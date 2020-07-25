@@ -5,18 +5,21 @@ const catchAsync = require('../errors/catchAsync');
 const { createToken, verifyToken } = require('../utils/jwt');
 const sendMail = require('../utils/email');
 
+const createAndSendToken = (res, statusCode, userId) => {
+  const token = createToken({ id: userId });
+
+  res.status(statusCode).json({
+    status: 'success',
+    token,
+  });
+};
+
 const signup = catchAsync(async (req, res) => {
   // 1- create a user
   const user = await User.create(req.body);
 
   // 2- login user
-  const token = createToken({ id: user._id });
-
-  res.status(201).json({
-    status: 'success',
-    token,
-    data: { user },
-  });
+  createAndSendToken(res, 201, user._id);
 });
 
 const login = catchAsync(async (req, res, next) => {
@@ -41,9 +44,7 @@ const login = catchAsync(async (req, res, next) => {
   }
 
   // 3- send token to client
-  const token = createToken({ id: user._id });
-
-  res.status(200).json({ status: 'success', token });
+  createAndSendToken(res, 200, user._id);
 });
 
 //this middleware is applicable wheneven you want to protect the route handler
@@ -156,10 +157,7 @@ const resetPassword = catchAsync(async (req, res, next) => {
   // 3- update passwordChangedAt prop. (auto using .pre('save'))
 
   // 4- log user in (set JWT);
-  res.status(200).json({
-    status: 'success',
-    token: createToken({ id: user._id }),
-  });
+  createAndSendToken(res, 200, user._id);
 });
 
 //for logged in users
@@ -183,10 +181,7 @@ const updatePassword = catchAsync(async (req, res, next) => {
   await user.updatePassword(newPassword, passwordConfirm);
 
   // 4- login user (new token)
-  res.json({
-    status: 'success',
-    token: createToken({ id }),
-  });
+  createAndSendToken(res, 200, user._id);
 });
 
 module.exports = {

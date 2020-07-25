@@ -8,13 +8,17 @@ const {
   protect,
 } = require('../controllers/authentication');
 
+const { updateMe } = require('../controllers/user');
+
 const router = express.Router();
 
-router.post('/signup', signup);
-router.get('/login', login); // get a JWT
-router.post('/forgotPassword', forgotPassword);
-router.patch('/resetPassword/:token', resetPassword);
+router.route('/signup').post(signup);
+router.route('/login').get(login); // get a JWT
 
-router.route('/').patch(protect, updatePassword);
+router.route('/forgotPassword').post(forgotPassword);
+router.route('/resetPassword/:token').patch(resetPassword);
+router.route('/updatePassword').patch(protect, updatePassword);
+
+router.route('/').patch(updateMe);
 
 module.exports = router;
