@@ -57,6 +57,14 @@ userSchema.pre('save', async function (next) {
   next();
 });
 
+userSchema.pre('save', function (next) {
+  if (this.isModified('password') && !this.isNew) {
+    this.passwordChangedAt = Date.now() - 1000;
+  }
+
+  next();
+});
+
 userSchema.methods.validatePassword = async function (password) {
   return await bcrypt.compare(password, this.password);
 };
@@ -70,19 +78,36 @@ userSchema.methods.isPassChangedAfterJWTcreation = function (iat) {
   return false;
 };
 
-userSchema.methods.createResetToken = function () {
+userSchema.methods.createResetToken = async function () {
   const resetToken = crypto.randomBytes(32).toString('hex');
 
   this.passwordResetToken = crypto.createHash('sha256').update(resetToken).digest('hex');
-
   this.passwordRestExpiresIn = Date.now() + 10 * 60 * 1000;
+
+  await this.save({ validateBeforeSave: false });
 
   return resetToken;
 };
 
-userSchema.methods.cancelPasswordReset = function () {
+userSchema.methods.cancelPasswordReset = async function () {
   this.passwordResetToken = undefined;
   this.passwordRestExpiresIn = undefined;
+
+  await this.save({ validateBeforeSave: false });
+};
+
+userSchema.methods.isExpiredResetToken = function () {
+  return this.passwordRestExpiresIn < Date.now();
+};
+
+userSchema.methods.resetPassword = async function (password, passwordConfirm) {
+  this.password = password;
+  this.passwordConfirm = passwordConfirm;
+
+  this.passwordRestExpiresIn = undefined;
+  this.passwordResetToken = undefined;
+
+  await this.save();
 };
 
 const User = mongoose.model('User', userSchema);
