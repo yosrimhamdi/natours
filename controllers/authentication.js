@@ -6,7 +6,15 @@ const { createToken, verifyToken } = require('../utils/jwt');
 const sendMail = require('../utils/email');
 
 const logInUser = (res, statusCode, userId) => {
+  const { JWT_COOKIE_EXPIRES_IN, NODE_ENV } = process.env;
+
   const token = createToken({ id: userId });
+
+  res.cookie('jwt', token, {
+    expries: new Date(Date.now() + JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000),
+    secure: NODE_ENV === 'production',
+    httpOnly: true,
+  });
 
   res.status(statusCode).json({
     status: 'success',
