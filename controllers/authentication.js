@@ -62,7 +62,7 @@ const protect = catchAsync(async (req, res, next) => {
   // 2- token verification
   const { id, iat } = await verifyToken(token);
 
-  const user = await User.findById(id);
+  const user = await User.findById(id).select('+password');
 
   // 3- check if the user still exists
   if (!user) {
@@ -156,21 +156,17 @@ const resetPassword = catchAsync(async (req, res, next) => {
 
   // 3- update passwordChangedAt prop. (auto using .pre('save'))
 
-  // 4- log user in (set JWT);
+  // 4- log user
   createAndSendToken(res, 200, user._id);
 });
 
-//for logged in users
 //NOTE: THIS IS A PROTECTED MIDDLEWARE, FOR LOGGED IN USERS
 const updatePassword = catchAsync(async (req, res, next) => {
-  const { id } = req.user;
+  // 1- get user from the req protect middleware
+  const { user } = req;
   const { oldPassword, newPassword, passwordConfirm } = req.body;
 
   if (!oldPassword) return next(new AppError('you must provide your old password.', 401));
-
-  // 1- search user again
-  //we need to .select('password') in order to access this.password in validtePassword()
-  const user = await User.findById(id).select('password');
 
   // 2- check password if it is correct
   const isValidPassword = await user.validatePassword(oldPassword);
