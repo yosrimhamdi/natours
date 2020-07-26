@@ -3,14 +3,8 @@ const catchAsync = require('../errors/catchAsync');
 const AppError = require('../errors/appError');
 
 const updateName = catchAsync(async (req, res, next) => {
-  const { newName, password } = req.body;
+  const { newName } = req.body;
   const { user } = req;
-
-  if (!password) return next(new AppError('password is required', 400));
-
-  const isValidPassword = await user.validatePassword(password);
-
-  if (!isValidPassword) return next(new AppError('invalid password', 401));
 
   await User.findByIdAndUpdate(
     user.id,
@@ -28,14 +22,8 @@ const updateName = catchAsync(async (req, res, next) => {
 });
 
 const updateEmail = catchAsync(async (req, res, next) => {
-  const { newEmail, password } = req.body;
+  const { newEmail } = req.body;
   const { user } = req;
-
-  if (!password) return next(new AppError('password is required', 400));
-
-  const isValidPassword = await user.validatePassword(password);
-
-  if (!isValidPassword) return next(new AppError('invalid password', 401));
 
   await User.findByIdAndUpdate(
     user.id,
@@ -60,7 +48,7 @@ const deleteMe = catchAsync(async (req, res, next) => {
 
   const isValidPassword = await user.validatePassword(password);
 
-  if (!isValidPassword) return next(new AppError('invalid password', 401));
+  if (!isValidPassword) return next(new AppError('wrong password', 401));
 
   await User.findByIdAndDelete(user.id);
 

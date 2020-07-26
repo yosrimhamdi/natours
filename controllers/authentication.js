@@ -5,7 +5,7 @@ const catchAsync = require('../errors/catchAsync');
 const { createToken, verifyToken } = require('../utils/jwt');
 const sendMail = require('../utils/email');
 
-const createAndSendToken = (res, statusCode, userId) => {
+const logInUser = (res, statusCode, userId) => {
   const token = createToken({ id: userId });
 
   res.status(statusCode).json({
@@ -15,24 +15,20 @@ const createAndSendToken = (res, statusCode, userId) => {
 };
 
 const signup = catchAsync(async (req, res) => {
-  // 1- create a user
   const user = await User.create(req.body);
 
-  // 2- login user
-  createAndSendToken(res, 201, user._id);
+  logInUser(res, 201, user._id);
 });
 
 const login = catchAsync(async (req, res, next) => {
   const { email, password } = req.body;
 
-  // 1- Check if email and password exist
   if (!(email && password)) {
     return next(new AppError('please provide email and password.', 400));
   }
 
   const user = await User.findOne({ email }).select('+password');
 
-  // 2- Check if user exists && password is correct
   if (!user) {
     return next(new AppError('wrong email or password', 401));
   }
@@ -43,14 +39,10 @@ const login = catchAsync(async (req, res, next) => {
     return next(new AppError('wrong email or password', 401));
   }
 
-  // 3- send token to client
-  createAndSendToken(res, 200, user._id);
+  logInUser(res, 200, user._id);
 });
 
-//this middleware is applicable wheneven you want to protect the route handler
-//meaning: when you want to make sure that the user is logged in!
 const protect = catchAsync(async (req, res, next) => {
-  // 1- Getting token and check of it's there
   let token = req.headers.authorization;
 
   if (token && token.startsWith('Bearer ')) {
@@ -59,12 +51,10 @@ const protect = catchAsync(async (req, res, next) => {
     return next(new AppError('Unauthorized, please login to get access.', 401));
   }
 
-  // 2- token verification
   const { id, iat } = await verifyToken(token);
 
   const user = await User.findById(id).select('+password');
 
-  // 3- check if the user still exists
   if (!user) {
     return next(
       new AppError('user has been deleted. please sign up to grant access.', 401)
@@ -73,7 +63,6 @@ const protect = catchAsync(async (req, res, next) => {
 
   const isChanged = user.isPassChangedAfterJWTcreation(iat);
 
-  // 4- Check if user changed password after the token was issued
   if (isChanged) {
     return next(
       new AppError(
@@ -83,8 +72,22 @@ const protect = catchAsync(async (req, res, next) => {
     );
   }
 
-  // => GRANT ACCESS TO PROTECTED ROUTE
+  //GRANT ACCESS TO PROTECTED ROUTE
   req.user = user;
+
+  next();
+});
+
+//TO MAKE SURE THAT IT IS THE ACTUAL USER(has the password)
+const itIsHim = catchAsync(async (req, res, next) => {
+  const { password } = req.body;
+  const { user } = req;
+
+  if (!password) return next(new AppError('password is required', 400));
+
+  const isValidPassword = await user.validatePassword(password);
+
+  if (!isValidPassword) return next(new AppError('wrong password', 401));
 
   next();
 });
@@ -104,17 +107,14 @@ const restrictTo = (...roles) => {
 };
 
 const forgotPassword = catchAsync(async (req, res, next) => {
-  // 1- get user based on posted email
   const user = await User.findOne({ email: req.body.email });
 
   if (!user) {
     return next(new AppError('invalid email.', 404));
   }
 
-  // 2- Generate the random reset token
   const resetToken = await user.createResetToken();
 
-  // 3- send it to user email
   const resetURL = `${req.protocol}://${req.get(
     'host'
   )}/api/users/resetPassword/${resetToken}`;
@@ -142,10 +142,8 @@ const forgotPassword = catchAsync(async (req, res, next) => {
 const resetPassword = catchAsync(async (req, res, next) => {
   const { password, passwordConfirm } = req.body;
 
-  // 1- get user based on token(crypt it and compare).
   const hashedToken = crypto.createHash('sha256').update(req.params.token).digest('hex');
 
-  // 2- if there is a user the and token has not expired set new Password.
   const user = await User.findOne({ passwordResetToken: hashedToken });
 
   if (!user) return next(new AppError('invalid token.', 401));
@@ -154,35 +152,22 @@ const resetPassword = catchAsync(async (req, res, next) => {
 
   await user.resetPassword(password, passwordConfirm);
 
-  // 3- update passwordChangedAt prop. (auto using .pre('save'))
-
-  // 4- log user
-  createAndSendToken(res, 200, user._id);
+  logInUser(res, 200, user._id);
 });
 
-//NOTE: THIS IS A PROTECTED MIDDLEWARE, FOR LOGGED IN USERS
 const updatePassword = catchAsync(async (req, res, next) => {
-  // 1- get user from the req protect middleware
   const { user } = req;
-  const { oldPassword, newPassword, passwordConfirm } = req.body;
+  const { newPassword, passwordConfirm } = req.body;
 
-  if (!oldPassword) return next(new AppError('you must provide your old password.', 401));
-
-  // 2- check password if it is correct
-  const isValidPassword = await user.validatePassword(oldPassword);
-
-  if (!isValidPassword) return next(new AppError('invalid password.', 401));
-
-  // 3- update password
   await user.updatePassword(newPassword, passwordConfirm);
 
-  // 4- login user (new token)
-  createAndSendToken(res, 200, user._id);
+  logInUser(res, 200, user._id);
 });
 
 module.exports = {
   signup,
   login,
+  itIsHim,
   protect,
   restrictTo,
   forgotPassword,
