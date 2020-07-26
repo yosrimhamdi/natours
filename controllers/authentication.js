@@ -42,7 +42,7 @@ const login = catchAsync(async (req, res, next) => {
   logInUser(res, 200, user._id);
 });
 
-const protect = catchAsync(async (req, res, next) => {
+const requireLogIn = catchAsync(async (req, res, next) => {
   let token = req.headers.authorization;
 
   if (token && token.startsWith('Bearer ')) {
@@ -79,7 +79,7 @@ const protect = catchAsync(async (req, res, next) => {
 });
 
 //TO MAKE SURE THAT IT IS THE ACTUAL USER(has the password)
-const itIsHim = catchAsync(async (req, res, next) => {
+const requirePassword = catchAsync(async (req, res, next) => {
   const { password } = req.body;
   const { user } = req;
 
@@ -167,8 +167,8 @@ const updatePassword = catchAsync(async (req, res, next) => {
 module.exports = {
   signup,
   login,
-  itIsHim,
-  protect,
+  requirePassword,
+  requireLogIn,
   restrictTo,
   forgotPassword,
   resetPassword,

@@ -8,17 +8,17 @@ const {
   aliasTop5,
   getTourStats,
 } = require('../controllers/tour');
-const { protect, restrictTo } = require('../controllers/authentication');
+const { requireLogIn, restrictTo } = require('../controllers/authentication');
 
 const router = express.Router();
 
-router.route('/').get(protect, getAllTours).post(createTour);
+router.route('/').get(requireLogIn, getAllTours).post(createTour);
 router.route('/top-5-cheap').get(aliasTop5, getAllTours);
 router.route('/stats').get(getTourStats);
 router
   .route('/:id')
   .get(getTourById)
   .patch(updateTour)
-  .delete(protect, restrictTo('admin'), deleteTour);
+  .delete(requireLogIn, restrictTo('admin'), deleteTour);
 
 module.exports = router;
