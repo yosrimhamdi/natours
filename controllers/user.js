@@ -52,4 +52,22 @@ const updateEmail = catchAsync(async (req, res, next) => {
   });
 });
 
-module.exports = { updateName, updateEmail };
+const deleteMe = catchAsync(async (req, res, next) => {
+  const { password } = req.body;
+  const { user } = req;
+
+  if (!password) return next(new AppError('password is required', 400));
+
+  const isValidPassword = await user.validatePassword(password);
+
+  if (!isValidPassword) return next(new AppError('invalid password', 401));
+
+  await User.findByIdAndDelete(user.id);
+
+  res.status(204).json({
+    status: 'success',
+    message: 'deleted',
+  });
+});
+
+module.exports = { updateName, updateEmail, deleteMe };

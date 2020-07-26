@@ -8,7 +8,7 @@ const {
   protect,
 } = require('../controllers/authentication');
 
-const { updateName, updateEmail } = require('../controllers/user');
+const { updateName, updateEmail, deleteMe } = require('../controllers/user');
 
 const router = express.Router();
 
@@ -20,5 +20,6 @@ router.patch('/resetPassword/:token', resetPassword);
 router.patch('/updatePassword', protect, updatePassword);
 router.patch('/updateName', protect, updateName);
 router.patch('/updateEmail', protect, updateEmail);
+router.delete('/deleteMe', protect, deleteMe);
 
 module.exports = router;
