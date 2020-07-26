@@ -72,13 +72,11 @@ const requireLogIn = catchAsync(async (req, res, next) => {
     );
   }
 
-  //GRANT ACCESS TO PROTECTED ROUTE
   req.user = user;
 
   next();
 });
 
-//TO MAKE SURE THAT IT IS THE ACTUAL USER(has the password)
 const requirePassword = catchAsync(async (req, res, next) => {
   const { password } = req.body;
   const { user } = req;
