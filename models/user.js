@@ -65,7 +65,7 @@ userSchema.pre('save', function (next) {
   next();
 });
 
-userSchema.methods.validatePassword = function (password) {
+userSchema.methods.validatePassword = async function (password) {
   return bcrypt.compare(password, this.password);
 };
 
@@ -89,7 +89,7 @@ userSchema.methods.createResetToken = async function () {
   return resetToken;
 };
 
-userSchema.methods.cancelPasswordReset = function () {
+userSchema.methods.cancelPasswordReset = async function () {
   this.passwordResetToken = undefined;
   this.passwordRestExpiresIn = undefined;
 
@@ -100,11 +100,11 @@ userSchema.methods.isExpiredResetToken = function () {
   return this.passwordRestExpiresIn < Date.now();
 };
 
-userSchema.methods.resetPassword = function (password, passwordConfirm) {
+userSchema.methods.resetPassword = async function (password, passwordConfirm) {
   this.passwordRestExpiresIn = undefined;
   this.passwordResetToken = undefined;
 
-  this.updatePassword(password, passwordConfirm);
+  return this.updatePassword(password, passwordConfirm);
 };
 
 userSchema.methods.updatePassword = function (password, passwordConfirm) {
