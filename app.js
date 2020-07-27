@@ -24,9 +24,9 @@ const limiter = rateLimiter({
 
 app.use('/api', limiter);
 
-app.use(express.static(`${__dirname}/public`));
+app.use(express.json({ limit: '10kb' }));
 
-app.use(express.json());
+app.use(express.static(`${__dirname}/public`));
 
 app.use('/api/tours', tourRouter);
 app.use('/api/users', userRouter);
