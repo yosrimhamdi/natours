@@ -33,7 +33,11 @@ app.use(mongoSanitize());
 
 app.use(xss());
 
-app.use(hpp());
+app.use(
+  hpp({
+    whilelist: ['duration'],
+  })
+);
 
 app.use(express.static(`${__dirname}/public`));
 
