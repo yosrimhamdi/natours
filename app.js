@@ -1,12 +1,16 @@
 const express = require('express');
 const morgan = require('morgan');
 const rateLimiter = require('express-rate-limit');
+const helmet = require('helmet');
+
 const tourRouter = require('./routers/tour');
 const userRouter = require('./routers/user');
 const globalErrHandler = require('./errors/globalErrHandler');
 const route404 = require('./errors/route404');
 
 const app = express();
+
+app.use(helmet());
 
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
