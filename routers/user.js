@@ -16,11 +16,11 @@ const router = express.Router();
 router.post('/signup', signup);
 router.get('/login', login);
 
-router.post('/forgotPassword', forgotPassword);
-router.patch('/resetPassword/:token', resetPassword);
-router.patch('/updatePassword', requireLogIn, requirePassword, updatePassword);
-router.patch('/updateName', requireLogIn, requirePassword, updateName);
-router.patch('/updateEmail', requireLogIn, requirePassword, updateEmail);
-router.delete('/deleteMe', requireLogIn, requirePassword, deleteMe);
+router.post('/password/forgot', forgotPassword);
+router.patch('/password/reset/:token', resetPassword);
+router.patch('/password/update', requireLogIn, requirePassword, updatePassword);
+router.patch('/update/name', requireLogIn, requirePassword, updateName);
+router.patch('/update/email', requireLogIn, requirePassword, updateEmail);
+router.delete('/delete', requireLogIn, requirePassword, deleteMe);
 
 module.exports = router;
