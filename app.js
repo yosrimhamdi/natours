@@ -4,6 +4,7 @@ const rateLimiter = require('express-rate-limit');
 const helmet = require('helmet');
 const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
+const hpp = require('hpp');
 
 const tourRouter = require('./routers/tour');
 const userRouter = require('./routers/user');
@@ -31,6 +32,8 @@ app.use(express.json({ limit: '10kb' }));
 app.use(mongoSanitize());
 
 app.use(xss());
+
+app.use(hpp());
 
 app.use(express.static(`${__dirname}/public`));
 
