@@ -8,6 +8,8 @@ const hpp = require('hpp');
 
 const tourRouter = require('./routers/tour');
 const userRouter = require('./routers/user');
+const reviewRouter = require('./routers/review');
+
 const globalErrHandler = require('./errors/globalErrHandler');
 const route404 = require('./errors/route404');
 
@@ -43,6 +45,7 @@ app.use(express.static(`${__dirname}/public`));
 
 app.use('/api/tours', tourRouter);
 app.use('/api/users', userRouter);
+app.use('/api/reviews', reviewRouter);
 
 app.all('*', route404);
 
