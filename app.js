@@ -5,6 +5,7 @@ const helmet = require('helmet');
 const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
 const hpp = require('hpp');
+const cookieParser = require('cookie-parser');
 
 const tourRouter = require('./routers/tour');
 const userRouter = require('./routers/user');
@@ -14,6 +15,8 @@ const globalErrHandler = require('./errors/globalErrHandler');
 const route404 = require('./errors/route404');
 
 const app = express();
+
+app.use(cookieParser());
 
 app.use(helmet());
 

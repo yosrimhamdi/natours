@@ -13,7 +13,7 @@ const reviewSchema = new mongoose.Schema({
   },
   createdAt: {
     type: Date,
-    defaut: Date.now(),
+    default: Date.now(),
   },
   user: {
     type: mongoose.Schema.ObjectId,

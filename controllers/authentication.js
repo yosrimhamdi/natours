@@ -18,7 +18,7 @@ const logInUser = (res, statusCode, userId) => {
 
   res.status(statusCode).json({
     status: 'success',
-    token,
+    message: 'logged in.',
   });
 };
 
@@ -51,11 +51,9 @@ const login = catchAsync(async (req, res, next) => {
 });
 
 const requireLogIn = catchAsync(async (req, res, next) => {
-  let token = req.headers.authorization;
+  const token = req.cookies.jwt;
 
-  if (token && token.startsWith('Bearer ')) {
-    token = token.substring(7);
-  } else {
+  if (!token) {
     return next(new AppError('Unauthorized, please login to get access.', 401));
   }
 
