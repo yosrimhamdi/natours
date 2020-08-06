@@ -14,7 +14,6 @@ const aliasTop5 = (req, res, next) => {
 };
 
 const getAllTours = catchAsync(async (req, res) => {
-  console.log(req.query);
   const { filter, fields, page, limit, sort } = new Distructure(req.query);
 
   const query = Tour.find(filter)
