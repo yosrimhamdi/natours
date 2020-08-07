@@ -27,6 +27,12 @@ const reviewSchema = new mongoose.Schema({
   },
 });
 
+reviewSchema.pre(/^find/, function (next) {
+  this.populate('user').populate('tour', 'name price');
+
+  next();
+});
+
 const Review = mongoose.model('Review', reviewSchema);
 
 module.exports = Review;
