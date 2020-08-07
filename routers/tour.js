@@ -8,6 +8,9 @@ const {
   aliasTop5,
   getTourStats,
 } = require('../controllers/tour');
+
+const { createReview } = require('../controllers/review');
+
 const { requireLogIn, restrictTo } = require('../controllers/authentication');
 
 const router = express.Router();
@@ -20,5 +23,7 @@ router
   .get(getTourById)
   .patch(updateTour)
   .delete(requireLogIn, restrictTo('admin'), deleteTour);
+
+router.route('/:id/reviews').post(requireLogIn, restrictTo('user'), createReview);
 
 module.exports = router;

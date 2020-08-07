@@ -104,9 +104,7 @@ tourSchema.pre(/^find/, function (next) {
 });
 
 tourSchema.pre('findOne', function (next) {
-  this.populate({
-    path: 'reviews',
-  });
+  this.populate('reviews');
 
   next();
 });
