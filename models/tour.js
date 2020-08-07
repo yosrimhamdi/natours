@@ -88,10 +88,24 @@ const tourSchema = new mongoose.Schema(
   }
 );
 
+tourSchema.virtual('reviews', {
+  ref: 'Review',
+  localField: '_id',
+  foreignField: 'tour',
+});
+
 tourSchema.pre(/^find/, function (next) {
   this.populate({
     path: 'guides',
     select: '-__v -passwordChangedAt',
+  });
+
+  next();
+});
+
+tourSchema.pre('findOne', function (next) {
+  this.populate({
+    path: 'reviews',
   });
 
   next();
