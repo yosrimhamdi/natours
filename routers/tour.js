@@ -9,11 +9,13 @@ const {
   getTourStats,
 } = require('../controllers/tour');
 
-const { createReview } = require('../controllers/review');
+const reviewRouter = require('./review');
 
 const { requireLogIn, restrictTo } = require('../controllers/authentication');
 
 const router = express.Router();
+
+router.use('/:id/reviews', reviewRouter);
 
 router.route('/').get(requireLogIn, getAllTours).post(createTour);
 router.route('/top-5-cheap').get(aliasTop5, getAllTours);
@@ -23,7 +25,5 @@ router
   .get(getTourById)
   .patch(updateTour)
   .delete(requireLogIn, restrictTo('admin'), deleteTour);
-
-router.route('/:id/reviews').post(requireLogIn, restrictTo('user'), createReview);
 
 module.exports = router;

@@ -94,11 +94,8 @@ tourSchema.virtual('reviews', {
   foreignField: 'tour',
 });
 
-tourSchema.pre(/^find/, function (next) {
-  this.populate({
-    path: 'guides',
-    select: '-__v -passwordChangedAt',
-  });
+tourSchema.pre(/((^find=[^findOne])\w)/, function (next) {
+  this.populate('guides');
 
   next();
 });
