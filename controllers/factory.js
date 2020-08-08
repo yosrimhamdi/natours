@@ -42,4 +42,17 @@ const deleteOne = Model =>
     });
   });
 
-module.exports = { createOne, updateOne, deleteOne };
+const getAll = Model =>
+  catchAsync(async (req, res, next) => {
+    const filter = req.filter ? req.filter : {};
+
+    const docs = await Model.find(filter);
+
+    res.status(200).json({
+      status: 'success',
+      results: docs.length,
+      data: { docs },
+    });
+  });
+
+module.exports = { createOne, updateOne, deleteOne, getAll };
