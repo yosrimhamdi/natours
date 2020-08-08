@@ -15,7 +15,7 @@ const { requireLogIn, restrictTo } = require('../controllers/authentication');
 
 const router = express.Router();
 
-router.use('/:id/reviews', reviewRouter);
+router.use('/:id?/reviews', reviewRouter);
 
 router.route('/').get(requireLogIn, getAllTours).post(createTour);
 router.route('/top-5-cheap').get(aliasTop5, getAllTours);
