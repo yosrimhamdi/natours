@@ -42,17 +42,31 @@ const deleteOne = Model =>
     });
   });
 
+const getOne = Model =>
+  catchAsync(async (req, res, next) => {
+    const document = await Model.findById(req.params.id);
+
+    if (!document) {
+      return next(new AppError(`document not found with id ${req.params.id}`, 404));
+    }
+
+    res.status(200).json({
+      status: 'success',
+      data: { document },
+    });
+  });
+
 const getAll = Model =>
   catchAsync(async (req, res, next) => {
     const filter = req.filter ? req.filter : {};
 
-    const docs = await Model.find(filter);
+    const documents = await Model.find(filter);
 
     res.status(200).json({
       status: 'success',
-      results: docs.length,
-      data: { docs },
+      results: documents.length,
+      data: { documents },
     });
   });
 
-module.exports = { createOne, updateOne, deleteOne, getAll };
+module.exports = { createOne, updateOne, deleteOne, getOne, getAll };

@@ -2,6 +2,7 @@ const express = require('express');
 
 const {
   getReviews,
+  getReview,
   createReview,
   deleteReview,
   setTourUserIds,
@@ -13,6 +14,6 @@ const router = express.Router({ mergeParams: true });
 
 router.route('/').get(setFilter, getReviews).post(setTourUserIds, createReview);
 
-router.route('/:id').delete(deleteReview).patch(updateReview);
+router.route('/:id').get(getReview).delete(deleteReview).patch(updateReview);
 
 module.exports = router;

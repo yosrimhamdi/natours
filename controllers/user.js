@@ -1,7 +1,7 @@
 const User = require('../models/user');
 const catchAsync = require('../errors/catchAsync');
 const AppError = require('../errors/appError');
-const { deleteOne } = require('./factory');
+const { deleteOne, getAll } = require('./factory');
 
 const updateName = catchAsync(async (req, res, next) => {
   const { newName } = req.body;
@@ -59,6 +59,8 @@ const deleteMe = catchAsync(async (req, res, next) => {
   });
 });
 
+const getUsers = getAll(User);
+
 const deleteUser = deleteOne(User);
 
-module.exports = { updateName, updateEmail, deleteMe, deleteUser };
+module.exports = { getUsers, updateName, updateEmail, deleteMe, deleteUser };

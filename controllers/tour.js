@@ -1,8 +1,7 @@
 const Tour = require('../models/tour');
 const Distructure = require('../utils/distructure');
 const catchAsync = require('../errors/catchAsync');
-const AppError = require('../errors/appError');
-const { deleteOne, updateOne, createOne } = require('./factory');
+const { getOne, createOne, updateOne, deleteOne } = require('./factory');
 
 const aliasTop5 = (req, res, next) => {
   req.query = {
@@ -34,18 +33,7 @@ const getAllTours = catchAsync(async (req, res) => {
   });
 });
 
-const getTourById = catchAsync(async (req, res, next) => {
-  const tour = await Tour.findById(req.params.id);
-
-  if (!tour) {
-    return next(new AppError(`tour not found with id ${req.params.id}`, 404));
-  }
-
-  res.status(200).json({
-    status: 'success',
-    data: { tour },
-  });
-});
+const getTourById = getOne(Tour);
 
 const createTour = createOne(Tour);
 

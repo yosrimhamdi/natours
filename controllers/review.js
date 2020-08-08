@@ -1,5 +1,5 @@
 const Review = require('../models/review');
-const { deleteOne, createOne, updateOne, getAll } = require('./factory');
+const { getOne, getAll, deleteOne, createOne, updateOne } = require('./factory');
 
 const setFilter = (req, res, next) => {
   req.filter = req.params.id ? { tour: req.params.id } : {};
@@ -14,6 +14,8 @@ const setTourUserIds = (req, res, next) => {
   next();
 };
 
+const getReview = getOne(Review);
+
 const getReviews = getAll(Review);
 
 const createReview = createOne(Review);
@@ -23,6 +25,7 @@ const updateReview = updateOne(Review);
 const deleteReview = deleteOne(Review);
 
 module.exports = {
+  getReview,
   getReviews,
   createReview,
   deleteReview,

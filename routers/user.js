@@ -7,9 +7,17 @@ const {
   updatePassword,
 } = require('../controllers/authentication');
 
-const { updateName, updateEmail, deleteMe, deleteUser } = require('../controllers/user');
+const {
+  getUsers,
+  updateName,
+  updateEmail,
+  deleteMe,
+  deleteUser,
+} = require('../controllers/user');
 
 const router = express.Router();
+
+router.route('/').get(getUsers);
 
 router.route('/:id').delete(deleteUser);
 
