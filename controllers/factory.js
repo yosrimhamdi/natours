@@ -1,17 +1,13 @@
 const catchAsync = require('../errors/catchAsync');
 const AppError = require('../errors/appError');
 
-const deleteOne = Model =>
-  catchAsync(async (req, res, next) => {
-    const document = await Model.findByIdAndDelete(req.params.id);
+const createOne = Model =>
+  catchAsync(async (req, res) => {
+    const document = await Model.create(req.body);
 
-    if (!document) {
-      return next(new AppError(`document not found with id ${req.params.id}`, 404));
-    }
-
-    res.status(204).json({
+    res.status(201).json({
       status: 'success',
-      data: null,
+      data: { document },
     });
   });
 
@@ -32,14 +28,18 @@ const updateOne = Model =>
     });
   });
 
-const create = Model =>
-  catchAsync(async (req, res) => {
-    const document = await Model.create(req.body);
+const deleteOne = Model =>
+  catchAsync(async (req, res, next) => {
+    const document = await Model.findByIdAndDelete(req.params.id);
 
-    res.status(201).json({
+    if (!document) {
+      return next(new AppError(`document not found with id ${req.params.id}`, 404));
+    }
+
+    res.status(204).json({
       status: 'success',
-      data: { document },
+      data: null,
     });
   });
 
-module.exports = { deleteOne, updateOne, create };
+module.exports = { createOne, updateOne, deleteOne };

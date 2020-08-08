@@ -2,7 +2,7 @@ const Tour = require('../models/tour');
 const Distructure = require('../utils/distructure');
 const catchAsync = require('../errors/catchAsync');
 const AppError = require('../errors/appError');
-const { deleteOne, updateOne, create } = require('./factory');
+const { deleteOne, updateOne, createOne } = require('./factory');
 
 const aliasTop5 = (req, res, next) => {
   req.query = {
@@ -47,7 +47,7 @@ const getTourById = catchAsync(async (req, res, next) => {
   });
 });
 
-const createTour = create(Tour);
+const createTour = createOne(Tour);
 
 const updateTour = updateOne(Tour);
 
