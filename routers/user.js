@@ -7,11 +7,14 @@ const {
   updatePassword,
   requireLogIn,
   requirePassword,
+  restrictTo,
 } = require('../controllers/authentication');
 
-const { updateName, updateEmail, deleteMe } = require('../controllers/user');
+const { updateName, updateEmail, deleteMe, deleteUser } = require('../controllers/user');
 
 const router = express.Router();
+
+router.route('/:id').delete(requireLogIn, restrictTo('admin'), deleteUser);
 
 router.post('/signup', signup);
 router.get('/login', login);
