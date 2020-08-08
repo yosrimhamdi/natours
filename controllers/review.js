@@ -1,5 +1,6 @@
 const Review = require('../models/review');
 const catchAsync = require('../errors/catchAsync');
+const { deleteOne } = require('./factory');
 
 const getReviews = catchAsync(async (req, res, next) => {
   const filter = req.params.id ? { tour: req.params.id } : {};
@@ -24,4 +25,6 @@ const createReview = catchAsync(async (req, res, next) => {
   });
 });
 
-module.exports = { getReviews, createReview };
+const deleteReview = deleteOne(Review);
+
+module.exports = { getReviews, createReview, deleteReview };

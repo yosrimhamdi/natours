@@ -2,6 +2,7 @@ const Tour = require('../models/tour');
 const Distructure = require('../utils/distructure');
 const catchAsync = require('../errors/catchAsync');
 const AppError = require('../errors/appError');
+const { deleteOne } = require('./factory');
 
 const aliasTop5 = (req, res, next) => {
   req.query = {
@@ -71,18 +72,7 @@ const updateTour = catchAsync(async (req, res, next) => {
   });
 });
 
-const deleteTour = catchAsync(async (req, res, next) => {
-  const tour = await Tour.findByIdAndDelete(req.params.id);
-
-  if (!tour) {
-    return next(new AppError(`tour not found with id ${req.params.id}`, 404));
-  }
-
-  res.status(204).json({
-    status: 'success',
-    data: null,
-  });
-});
+const deleteTour = deleteOne(Tour);
 
 const getTourStats = catchAsync(async (req, res) => {
   const stats = await Tour.aggregate([
