@@ -5,9 +5,12 @@ const createOne = Model =>
   catchAsync(async (req, res) => {
     const document = await Model.create(req.body);
 
+    const data = {};
+    data[`${Model.collection.name.slice(0, -1)}`] = document;
+
     res.status(201).json({
       status: 'success',
-      data: { document },
+      data,
     });
   });
 
@@ -22,9 +25,12 @@ const updateOne = Model =>
       return next(new AppError(`document not found with id ${req.params.id}`, 404));
     }
 
+    const data = {};
+    data[`${Model.collection.name.slice(0, -1)}`] = updatedDoc;
+
     res.status(200).json({
       status: 'success',
-      data: { document: updatedDoc },
+      data,
     });
   });
 
@@ -50,9 +56,12 @@ const getOne = Model =>
       return next(new AppError(`document not found with id ${req.params.id}`, 404));
     }
 
+    const data = {};
+    data[`${Model.collection.name.slice(0, -1)}`] = document;
+
     res.status(200).json({
       status: 'success',
-      data: { document },
+      data,
     });
   });
 
@@ -62,10 +71,13 @@ const getAll = Model =>
 
     const documents = await Model.find(filter);
 
+    const data = {};
+    data[`${Model.collection.name}`] = documents;
+
     res.status(200).json({
       status: 'success',
       results: documents.length,
-      data: { documents },
+      data,
     });
   });
 
