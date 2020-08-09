@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const slugify = require('slugify');
 
 const tourSchema = new mongoose.Schema(
   {
@@ -13,15 +14,15 @@ const tourSchema = new mongoose.Schema(
     slug: String,
     duration: {
       type: Number,
-      // required: [true, 'A tour must have a duration'],
+      required: [true, 'A tour must have a duration'],
     },
     maxGroupSize: {
       type: Number,
-      // required: [true, 'A tour must have a group size'],
+      required: [true, 'A tour must have a group size'],
     },
     difficulty: {
       type: String,
-      // required: [true, 'A tour must have a difficulty'],
+      required: [true, 'A tour must have a difficulty'],
       enum: {
         values: ['easy', 'medium', 'difficult'],
         message: 'Difficulty is either: easy, medium, difficult',
@@ -54,7 +55,7 @@ const tourSchema = new mongoose.Schema(
     summary: {
       type: String,
       trim: true,
-      // required: [true, 'A tour must have a description'],
+      required: [true, 'A tour must have a description'],
     },
     description: {
       type: String,
@@ -62,7 +63,7 @@ const tourSchema = new mongoose.Schema(
     },
     imageCover: {
       type: String,
-      // required: [true, 'A tour must have a cover image'],
+      required: [true, 'A tour must have a cover image'],
     },
     images: [String],
     createdAt: {
@@ -87,6 +88,15 @@ const tourSchema = new mongoose.Schema(
     toObject: { virtuals: true },
   }
 );
+
+tourSchema.index({ price: 1, ratingsAverage: -1 });
+tourSchema.index({ slug: 1 });
+
+tourSchema.pre('save', function (next) {
+  this.slug = slugify(this.name, { lower: true });
+
+  next();
+});
 
 tourSchema.virtual('reviews', {
   ref: 'Review',

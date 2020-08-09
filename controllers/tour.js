@@ -22,7 +22,7 @@ const getAllTours = catchAsync(async (req, res) => {
     .limit(limit)
     .sort(sort);
 
-  const tours = await query;
+  const tours = await query.explain();
 
   res.status(200).json({
     status: 'success',
