@@ -11,15 +11,22 @@ const {
 
 const reviewRouter = require('./review');
 
-const { requireLogIn } = require('../controllers/authentication');
+const { requireLogIn, restrictTo } = require('../controllers/authentication');
 
 const router = express.Router();
 
-router.use('/:id?/reviews', requireLogIn, reviewRouter);
+router.use('/:id/reviews', reviewRouter);
 
-router.route('/').get(requireLogIn, getAllTours).post(createTour);
+router.route('/').get(getAllTours).post(requireLogIn, restrictTo('admin'), createTour);
+
 router.route('/top-5-cheap').get(aliasTop5, getAllTours);
+
 router.route('/stats').get(getTourStats);
-router.route('/:id').get(getTourById).patch(updateTour).delete(deleteTour);
+
+router
+  .route('/:id')
+  .get(getTourById)
+  .patch(requireLogIn, restrictTo('admin'), updateTour)
+  .delete(requireLogIn, restrictTo('admin'), deleteTour);
 
 module.exports = router;

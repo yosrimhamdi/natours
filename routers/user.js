@@ -17,24 +17,31 @@ const {
   setParamsId,
 } = require('../controllers/user');
 
-const { requireLogIn } = require('../controllers/authentication');
+const {
+  requireLogIn,
+  requirePassword,
+  restrictTo,
+} = require('../controllers/authentication');
 
 const router = express.Router();
 
-router.route('/').get(getUsers);
+router.post('/signup', signup);
+router.get('/login', login);
+router.post('/password/forgot', forgotPassword);
+router.patch('/password/reset/:token', resetPassword);
 
 router.get('/me', requireLogIn, setParamsId, getUser);
 
-router.route('/:id').get(getUser).delete(deleteUser);
+router.use(requireLogIn, requirePassword);
 
-router.post('/signup', signup);
-router.get('/login', login);
-
-router.post('/password/forgot', forgotPassword);
-router.patch('/password/reset/:token', resetPassword);
 router.patch('/password/update', updatePassword);
-router.patch('/update/name', updateName);
-router.patch('/update/email', updateEmail);
+router.patch('/name/update', updateName);
+router.patch('/email/update', updateEmail);
 router.delete('/delete', deleteMe);
+
+router.use(restrictTo('admin'));
+
+router.route('/').get(getUsers);
+router.route('/:id').get(getUser).delete(deleteUser);
 
 module.exports = router;
