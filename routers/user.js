@@ -8,18 +8,24 @@ const {
 } = require('../controllers/authentication');
 
 const {
+  getUser,
   getUsers,
   updateName,
   updateEmail,
   deleteMe,
   deleteUser,
+  setParamsId,
 } = require('../controllers/user');
+
+const { requireLogIn } = require('../controllers/authentication');
 
 const router = express.Router();
 
 router.route('/').get(getUsers);
 
-router.route('/:id').delete(deleteUser);
+router.get('/me', requireLogIn, setParamsId, getUser);
+
+router.route('/:id').get(getUser).delete(deleteUser);
 
 router.post('/signup', signup);
 router.get('/login', login);
