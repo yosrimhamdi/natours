@@ -7,7 +7,7 @@ const reviewSchema = new mongoose.Schema({
     min: [1, 'must be >= 1'],
     max: [5, 'must be <= 5'],
   },
-  message: {
+  review: {
     type: String,
     required: [true, 'need a message'],
   },
