@@ -16,13 +16,11 @@ const aliasTop5 = (req, res, next) => {
 const getAllTours = catchAsync(async (req, res) => {
   const { filter, fields, page, limit, sort } = new Distructure(req.query);
 
-  const query = Tour.find(filter)
+  const tours = await Tour.find(filter)
     .select(fields)
     .skip((page - 1) * 10)
     .limit(limit)
     .sort(sort);
-
-  const tours = await query.explain();
 
   res.status(200).json({
     status: 'success',
