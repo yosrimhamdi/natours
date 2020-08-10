@@ -34,14 +34,26 @@ reviewSchema.pre(/^find/, function (next) {
   next();
 });
 
-reviewSchema.post(/(save|remove)/, async function () {
+reviewSchema.post('save', async function () {
   const [stats] = await this.constructor.calcAverageRating(this.tour);
 
   await this.constructor.setAverageRating(stats);
 });
 
-reviewSchema.statics.setAverageRating = async function (stats) {
-  const { _id: tourId, ratingsQuantity, ratingsAverage } = stats;
+reviewSchema.pre(/^findOneAnd/, async function (next) {
+  this.review = await this.findOne();
+
+  next();
+});
+
+reviewSchema.post(/^findOneAnd/, async function () {
+  const [stats] = await this.review.constructor.calcAverageRating(this.review.tour);
+
+  await this.review.constructor.setAverageRating(stats, this.review.tour);
+});
+
+reviewSchema.statics.setAverageRating = async function (tourId, stats) {
+  const { ratingsQuantity = 0, ratingsAverage = 4.5 } = stats;
 
   await Tour.findByIdAndUpdate(tourId, { ratingsQuantity, ratingsAverage });
 };
