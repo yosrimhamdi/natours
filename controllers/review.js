@@ -1,5 +1,7 @@
 const Review = require('../models/review');
 const { getOne, getAll, deleteOne, createOne, updateOne } = require('./factory');
+const AppError = require('../errors/appError');
+const catchAsync = require('../errors/catchAsync');
 
 const setFilter = (req, res, next) => {
   req.filter = req.params.id ? { tour: req.params.id } : {};
@@ -13,6 +15,23 @@ const setTourUserIds = (req, res, next) => {
 
   next();
 };
+
+const hasAReviewOnCurrentTour = catchAsync(async (req, res, next) => {
+  const { user, tour } = req.body;
+
+  const review = await Review.findOne({ user, tour });
+
+  if (review) {
+    return next(
+      new AppError(
+        'you have already made a review on this tour, try to update or delete it.',
+        403
+      )
+    );
+  }
+
+  next();
+});
 
 const getReview = getOne(Review);
 
@@ -32,4 +51,5 @@ module.exports = {
   setTourUserIds,
   updateReview,
   setFilter,
+  hasAReviewOnCurrentTour,
 };
