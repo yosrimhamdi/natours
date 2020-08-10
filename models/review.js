@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const Tour = require('./tour');
 
 const reviewSchema = new mongoose.Schema({
   rating: {
@@ -32,6 +33,33 @@ reviewSchema.pre(/^find/, function (next) {
 
   next();
 });
+
+reviewSchema.post(/(save|remove)/, async function () {
+  const [stats] = await this.constructor.calcAverageRating(this.tour);
+
+  await this.constructor.setAverageRating(stats);
+});
+
+reviewSchema.statics.setAverageRating = async function (stats) {
+  const { _id: tourId, ratingsQuantity, ratingsAverage } = stats;
+
+  await Tour.findByIdAndUpdate(tourId, { ratingsQuantity, ratingsAverage });
+};
+
+reviewSchema.statics.calcAverageRating = async function (tourId) {
+  const stats = await this.aggregate([
+    { $match: { tour: tourId } },
+    {
+      $group: {
+        _id: '$tour',
+        ratingsQuantity: { $sum: 1 },
+        ratingsAverage: { $avg: '$rating' },
+      },
+    },
+  ]);
+
+  return stats;
+};
 
 const Review = mongoose.model('Review', reviewSchema);
 
