@@ -37,7 +37,7 @@ reviewSchema.pre(/^find/, function (next) {
 reviewSchema.post('save', async function () {
   const [stats] = await this.constructor.calcAverageRating(this.tour);
 
-  await this.constructor.setAverageRating(stats, this.review.tour);
+  await this.constructor.setAverageRating(stats, this.tour);
 });
 
 reviewSchema.pre(/^findOneAnd/, async function (next) {
