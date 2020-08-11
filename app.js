@@ -1,3 +1,4 @@
+const path = require('path');
 const express = require('express');
 const morgan = require('morgan');
 const rateLimiter = require('express-rate-limit');
@@ -15,6 +16,11 @@ const globalErrHandler = require('./errors/globalErrHandler');
 const route404 = require('./errors/route404');
 
 const app = express();
+
+app.set('view engine', 'pug');
+app.set('views', path.join(__dirname, 'views'));
+
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(cookieParser());
 
@@ -44,7 +50,9 @@ app.use(
   })
 );
 
-app.use(express.static(`${__dirname}/public`));
+app.get('/', (req, res) => {
+  res.status(200).render('base');
+});
 
 app.use('/api/tours', tourRouter);
 app.use('/api/users', userRouter);
