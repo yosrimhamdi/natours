@@ -52,7 +52,7 @@ reviewSchema.post(/^findOneAnd/, async function () {
   await this.review.constructor.setAverageRating(stats, this.review.tour);
 });
 
-reviewSchema.statics.setAverageRating = async function (tourId, stats = {}) {
+reviewSchema.statics.setAverageRating = async function (stats = {}, tourId) {
   const { ratingsQuantity = 0, ratingsAverage = 4.5 } = stats;
 
   await Tour.findByIdAndUpdate(tourId, { ratingsQuantity, ratingsAverage });
