@@ -8,7 +8,6 @@ const {
   setTourUserIds,
   updateReview,
   setFilter,
-  hasAReviewOnCurrentTour,
 } = require('../controllers/review');
 
 const { requireLogIn, restrictTo } = require('../controllers/authentication');
@@ -20,7 +19,7 @@ router.use(requireLogIn);
 router
   .route('/')
   .get(setFilter, getReviews)
-  .post(restrictTo('user'), setTourUserIds, hasAReviewOnCurrentTour, createReview);
+  .post(restrictTo('user'), setTourUserIds, createReview);
 
 router
   .route('/:id')
