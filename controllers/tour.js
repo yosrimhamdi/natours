@@ -1,7 +1,7 @@
 const Tour = require('../models/tour');
 const Distructure = require('../utils/distructure');
 const catchAsync = require('../errors/catchAsync');
-const { getOne, createOne, updateOne, deleteOne } = require('./factory');
+const { createOne, updateOne, deleteOne } = require('./factory');
 
 const aliasTop5 = (req, res, next) => {
   req.query = {
@@ -31,7 +31,14 @@ const getAllTours = catchAsync(async (req, res) => {
   });
 });
 
-const getTourById = getOne(Tour);
+const getTourBySlug = catchAsync(async (req, res, next) => {
+  const tour = await Tour.findOne({ slug: req.params.id });
+
+  res.status(200).json({
+    status: 'success',
+    data: { tour },
+  });
+});
 
 const createTour = createOne(Tour);
 
@@ -65,7 +72,7 @@ const getTourStats = catchAsync(async (req, res) => {
 
 module.exports = {
   getAllTours,
-  getTourById,
+  getTourBySlug,
   createTour,
   updateTour,
   deleteTour,

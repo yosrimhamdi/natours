@@ -1,7 +1,7 @@
 const express = require('express');
 const {
   getAllTours,
-  getTourById,
+  getTourBySlug,
   createTour,
   updateTour,
   deleteTour,
@@ -25,7 +25,7 @@ router.route('/stats').get(getTourStats);
 
 router
   .route('/:id')
-  .get(getTourById)
+  .get(getTourBySlug)
   .patch(requireLogIn, restrictTo('admin'), updateTour)
   .delete(requireLogIn, restrictTo('admin'), deleteTour);
 
