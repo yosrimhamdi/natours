@@ -52,6 +52,7 @@ app.use(
 );
 
 app.use('/', viewRouter);
+
 app.use('/api/tours', tourRouter);
 app.use('/api/users', userRouter);
 app.use('/api/reviews', reviewRouter);

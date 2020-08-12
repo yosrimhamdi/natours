@@ -1,17 +1,18 @@
-const axios = require('axios');
+const tours = require('../apis/tours');
+const catchAsync = require('../errors/catchAsync');
 
-const getOverview = async (req, res, next) => {
-  const response = await axios.get('http://localhost:3000/api/tours');
+const getOverview = catchAsync(async (req, res, next) => {
+  const response = await tours.get('/');
 
-  const { tours } = response.data.data;
+  res.status(200).render('overview', { title: 'All Tours', tours: response.data });
+});
 
-  console.log(tours);
+const getTour = catchAsync(async (req, res, next) => {
+  const response = await tours.get(`/${req.params.slug}`);
 
-  res.status(200).render('overview', { title: 'All Tours', tours });
-};
+  const { tour } = response.data;
 
-const getTour = (req, res, next) => {
-  res.status(200).render('tour');
-};
+  res.status(200).render('tour', { title: tour.name, tour });
+});
 
 module.exports = { getOverview, getTour };
