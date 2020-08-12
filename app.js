@@ -11,6 +11,7 @@ const cookieParser = require('cookie-parser');
 const tourRouter = require('./routers/tour');
 const userRouter = require('./routers/user');
 const reviewRouter = require('./routers/review');
+const viewRouter = require('./routers/view');
 
 const globalErrHandler = require('./errors/globalErrHandler');
 const route404 = require('./errors/route404');
@@ -50,13 +51,7 @@ app.use(
   })
 );
 
-app.get('/', (req, res) => {
-  res.status(200).render('base', {
-    tours: ['the forst hiker', 'second tour'],
-    user: { name: 'Yosri ' },
-  });
-});
-
+app.use('/', viewRouter);
 app.use('/api/tours', tourRouter);
 app.use('/api/users', userRouter);
 app.use('/api/reviews', reviewRouter);
