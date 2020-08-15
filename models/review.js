@@ -75,6 +75,12 @@ reviewSchema.statics.calcAverageRating = async function (tourId) {
   return stats;
 };
 
+reviewSchema.pre(/^find/, function (next) {
+  this.sort({ rating: -1 });
+
+  next();
+});
+
 const Review = mongoose.model('Review', reviewSchema);
 
 module.exports = Review;
