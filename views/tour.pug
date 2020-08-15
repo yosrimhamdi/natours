@@ -1,5 +1,12 @@
 extends base
 
+mixin overviewDetail(tabel, text, icon)
+  .overview-box__detail
+    svg.overview-box__icon
+      use(xlink:href='/img/icons.svg#icon-calendar')
+    span.overview-box__label Next date
+    span.overview-box__text= new Date(tour.startDates[0]).getFullYear()
+
 block content
   section.section-header
     .header__hero
@@ -24,11 +31,8 @@ block content
       div
         .overview-box__group
           h2.heading-secondary.ma-bt-lg Quick facts
-          .overview-box__detail
-            svg.overview-box__icon
-              use(xlink:href='/img/icons.svg#icon-calendar')
-            span.overview-box__label Next date
-            span.overview-box__text= new Date(tour.startDates[0]).getFullYear()
+
+          +overviewDetail()
           .overview-box__detail
             svg.overview-box__icon
               use(xlink:href='/img/icons.svg#icon-trending-up')

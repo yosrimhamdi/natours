@@ -4,7 +4,7 @@ const catchAsync = require('../errors/catchAsync');
 const getOverview = catchAsync(async (req, res, next) => {
   const response = await tours.get('/');
 
-  res.status(200).render('overview', { title: 'All Tours', tours: response.data });
+  res.status(200).render('overview', { title: 'All Tours', tours: response.data.tours });
 });
 
 const getTour = catchAsync(async (req, res, next) => {
