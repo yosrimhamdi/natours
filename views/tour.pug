@@ -33,10 +33,10 @@ block content
 
           - const date = new Date(tour.startDates[0]).getFullYear()
 
-          +overviewDetail('Next date', date, 'icon-calendar')
-          +overviewDetail('Difficulty', tour.difficulty, 'icon-trending-up')
-          +overviewDetail('Participants', `${tour.maxGroupSize} people`, 'icon-user')
-          +overviewDetail('Next date', `${tour.ratingsAverage} / 5`, 'icon-star')
+          +tourDetail('Next date', date, 'icon-calendar')
+          +tourDetail('Difficulty', tour.difficulty, 'icon-trending-up')
+          +tourDetail('Participants', `${tour.maxGroupSize} people`, 'icon-user')
+          +tourDetail('Next date', `${tour.ratingsAverage} / 5`, 'icon-star')
 
         .overview-box__group
           h2.heading-secondary.ma-bt-lg Your tour guides
