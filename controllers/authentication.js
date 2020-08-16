@@ -83,6 +83,26 @@ const requireLogIn = catchAsync(async (req, res, next) => {
   next();
 });
 
+const isLoggedIn = catchAsync(async (req, res, next) => {
+  const token = req.cookies.jwt;
+
+  if (token) {
+    const { id, iat } = await verifyToken(token);
+
+    const user = await User.findById(id).select('+password');
+
+    if (user) {
+      const isChanged = user.isPassChangedAfterJWTcreation(iat);
+
+      if (!isChanged) {
+        res.locals.user = user;
+      }
+    }
+  }
+
+  next();
+});
+
 const requirePassword = catchAsync(async (req, res, next) => {
   const { password } = req.body;
   const { user } = req;
@@ -177,4 +197,5 @@ module.exports = {
   forgotPassword,
   resetPassword,
   updatePassword,
+  isLoggedIn,
 };

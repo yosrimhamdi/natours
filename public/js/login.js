@@ -12,8 +12,9 @@ form.addEventListener('submit', async e => {
       email,
       password,
     });
-    console.log(response);
+
+    window.location.assign('/');
   } catch (err) {
-    console.log(err.response.data);
+    alert(err.response.data.message);
   }
 });
