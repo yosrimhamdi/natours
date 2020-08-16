@@ -1,7 +1,17 @@
 /* eslint-disable */
 const form = document.querySelector('.form');
 
-form.addEventListener('submit', async e => {
+const showAlert = (type, message) => {
+  const alertDOM = `<div class="alert alert--${type}">${message}</div>`;
+
+  document.body.insertAdjacentHTML('afterBegin', alertDOM);
+};
+
+const removeAlert = () => {
+  document.querySelector('.alert').remove();
+};
+
+const login = async e => {
   e.preventDefault();
 
   const email = document.getElementById('email').value;
@@ -13,8 +23,18 @@ form.addEventListener('submit', async e => {
       password,
     });
 
-    window.location.assign('/');
+    showAlert('success', response.data.message);
+
+    window.setTimeout(() => {
+      removeAlert();
+      window.location.assign('/');
+    }, 1000);
   } catch (err) {
-    alert(err.response.data.message);
+    showAlert('error', err.response.data.message);
+    window.setTimeout(() => {
+      removeAlert();
+    }, 1200);
   }
-});
+};
+
+form.addEventListener('submit', login);

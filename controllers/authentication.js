@@ -38,13 +38,13 @@ const login = catchAsync(async (req, res, next) => {
   const user = await User.findOne({ email }).select('+password');
 
   if (!user) {
-    return next(new AppError('wrong email or password', 401));
+    return next(new AppError('wrong email or password.', 401));
   }
 
   const isValid = await user.validatePassword(password);
 
   if (!isValid) {
-    return next(new AppError('wrong email or password', 401));
+    return next(new AppError('wrong email or password.', 401));
   }
 
   logInUser(res, 200, user._id);
