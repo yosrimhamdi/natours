@@ -5,7 +5,7 @@ const locations = JSON.parse(document.getElementById('map').dataset.locations);
 mapboxgl.accessToken =
   'pk.eyJ1IjoieW9zcmltaGFtZGkiLCJhIjoiY2tkdnFsb2s5MDlxOTMwcWk0NXRlcm96bSJ9.5L4RkN0Ppcw8MzGGI_vA9g';
 
-var map = new mapboxgl.Map({
+const map = new mapboxgl.Map({
   container: 'map',
   style: 'mapbox://styles/yosrimhamdi/ckdvqw0rq2ele19lllukvdiqd',
   scrollZoom: false,

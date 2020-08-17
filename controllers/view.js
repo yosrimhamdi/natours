@@ -1,4 +1,4 @@
-const tours = require('../apis/tours');
+const tours = require('../apis/server/tours');
 const catchAsync = require('../errors/catchAsync');
 
 const getOverview = catchAsync(async (req, res, next) => {

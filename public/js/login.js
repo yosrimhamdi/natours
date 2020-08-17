@@ -1,5 +1,4 @@
-import axios from 'axios';
-
+import users from '../../apis/client/users';
 import { showAlert, removeAlert } from './alert';
 
 const form = document.querySelector('.form');
@@ -11,7 +10,7 @@ const login = async e => {
   const password = document.getElementById('password').value;
 
   try {
-    const response = await axios.post('http://localhost:3000/api/users/login', {
+    const response = await users.post('/login', {
       email,
       password,
     });

@@ -1,5 +1,4 @@
-import axios from 'axios';
-
+import users from '../../apis/client/users';
 import { showAlert, removeAlert } from './alert';
 
 const logoutButton = document.querySelector('.nav__el--logout');
@@ -8,9 +7,9 @@ const logout = async e => {
   e.preventDefault();
 
   try {
-    await axios.get('http://localhost:3000/api/users/logout');
+    await users.get('/logout');
 
-    window.location.assign('/');
+    window.location.reload(true);
   } catch (err) {
     showAlert('error', 'logout failed.');
 
