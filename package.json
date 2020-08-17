@@ -6,6 +6,7 @@
   "scripts": {
     "start": "nodemon server.js",
     "start:prod": "set NODE_ENV=production && nodemon server.js",
+    "build": "webpack",
     "debug": "ndb server.js"
   },
   "keywords": [],
@@ -23,6 +24,7 @@
     "hpp": "^0.2.3",
     "html2pug": "^4.0.0",
     "jsonwebtoken": "^8.5.1",
+    "mapbox-gl": "^1.12.0",
     "mongoose": "^5.9.28",
     "morgan": "^1.10.0",
     "ndb": "^1.1.5",
@@ -30,6 +32,8 @@
     "pug": "^3.0.0",
     "slugify": "^1.4.5",
     "validator": "^13.1.1",
+    "webpack": "^4.44.1",
+    "webpack-cli": "^3.3.12",
     "xss-clean": "^0.1.1"
   },
   "devDependencies": {

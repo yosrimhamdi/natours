@@ -1,8 +1,5 @@
 extends base
 
-block append head
-  script(src='https://unpkg.com/axios/dist/axios.min.js')
-
 block content
   main.main
     .login-form
@@ -17,4 +14,4 @@ block content
         .form__group
           button.btn.btn--green Login
 
-  script(src='/js/login.js')
+  script(src='/js/bundle/login.js')

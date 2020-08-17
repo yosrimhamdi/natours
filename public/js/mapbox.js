@@ -1,5 +1,7 @@
 /* eslint-disable */
 
+import mapboxgl from 'mapbox-gl';
+
 const locations = JSON.parse(document.getElementById('map').dataset.locations);
 
 mapboxgl.accessToken =
@@ -9,9 +11,6 @@ var map = new mapboxgl.Map({
   container: 'map',
   style: 'mapbox://styles/yosrimhamdi/ckdvqw0rq2ele19lllukvdiqd',
   scrollZoom: false,
-  // center: [-118.113491, 34.111745],
-  // zoom: 10,
-  // interactive: false
 });
 
 const bounds = new mapboxgl.LngLatBounds();

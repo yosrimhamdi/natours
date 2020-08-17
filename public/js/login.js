@@ -1,4 +1,6 @@
 /* eslint-disable */
+import axios from 'axios';
+
 const form = document.querySelector('.form');
 
 const showAlert = (type, message) => {
