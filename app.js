@@ -13,8 +13,8 @@ const userRouter = require('./routers/user');
 const reviewRouter = require('./routers/review');
 const viewRouter = require('./routers/view');
 
-const globalErrHandler = require('./errors/globalErrHandler');
-const route404 = require('./errors/route404');
+const { handleCommonErrors, forAPI, forWebsite } = require('./errors/globalHandlers');
+const routeNotFound = require('./errors/routeNotFound');
 
 const app = express();
 
@@ -57,8 +57,8 @@ app.use('/api/tours', tourRouter);
 app.use('/api/users', userRouter);
 app.use('/api/reviews', reviewRouter);
 
-app.all('*', route404);
+app.all('*', routeNotFound);
 
-app.use(globalErrHandler);
+app.use(handleCommonErrors, forAPI, forWebsite);
 
 module.exports = app;
