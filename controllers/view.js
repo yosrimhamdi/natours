@@ -26,4 +26,8 @@ const getLoginForm = (req, res) => {
   res.status(200).render('login', { title: 'Login' });
 };
 
-module.exports = { getOverview, getTour, getLoginForm };
+const getUserAccount = (req, res) => {
+  res.status(200).render('account', { title: 'Account' });
+};
+
+module.exports = { getOverview, getTour, getLoginForm, getUserAccount };

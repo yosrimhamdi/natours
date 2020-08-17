@@ -3,6 +3,7 @@ module.exports = {
     login: './public/js/login.js',
     logout: './public/js/logout.js',
     mapbox: './public/js/mapbox.js',
+    account: './public/js/account.js',
   },
   output: {
     filename: '[name].js',
