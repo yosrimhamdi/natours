@@ -36,10 +36,10 @@ router.get('/me', requireLogIn, setParamsId, getUser);
 
 router.use(requireLogIn, requirePassword);
 
-router.patch('/password/update', updatePassword);
-router.patch('/name/update', updateName);
-router.patch('/email/update', updateEmail);
-router.delete('/delete', deleteMe);
+router.patch('/admin/update/password', updatePassword);
+router.patch('/admin/update/name', updateName);
+router.patch('/admin/update/email', updateEmail);
+router.delete('/admin/delete', deleteMe);
 
 router.use(restrictTo('admin'));
 
