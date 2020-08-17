@@ -1,4 +1,3 @@
-/* eslint-disable */
 import axios from 'axios';
 
 console.log('logout.js');

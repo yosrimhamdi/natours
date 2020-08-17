@@ -1,17 +1,8 @@
-/* eslint-disable */
 import axios from 'axios';
 
+import { showAlert, removeAlert } from './alert';
+
 const form = document.querySelector('.form');
-
-const showAlert = (type, message) => {
-  const alertDOM = `<div class="alert alert--${type}">${message}</div>`;
-
-  document.body.insertAdjacentHTML('afterBegin', alertDOM);
-};
-
-const removeAlert = () => {
-  document.querySelector('.alert').remove();
-};
 
 const login = async e => {
   e.preventDefault();

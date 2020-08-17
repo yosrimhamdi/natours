@@ -1,5 +1,3 @@
-/* eslint-disable */
-
 import mapboxgl from 'mapbox-gl';
 
 const locations = JSON.parse(document.getElementById('map').dataset.locations);
