@@ -50,6 +50,15 @@ const login = catchAsync(async (req, res, next) => {
   logInUser(res, 200, user._id);
 });
 
+const logOut = (req, res, next) => {
+  res.cookie('jwt', '');
+
+  res.status(200).json({
+    status: 'success',
+    message: 'logged out',
+  });
+};
+
 const requireLogIn = catchAsync(async (req, res, next) => {
   const token = req.cookies.jwt;
 
@@ -198,4 +207,5 @@ module.exports = {
   resetPassword,
   updatePassword,
   isLoggedIn,
+  logOut,
 };

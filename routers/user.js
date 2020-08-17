@@ -21,12 +21,14 @@ const {
   requireLogIn,
   requirePassword,
   restrictTo,
+  logOut,
 } = require('../controllers/authentication');
 
 const router = express.Router();
 
 router.post('/signup', signup);
 router.post('/login', login);
+router.get('/logout', logOut);
 router.post('/password/forgot', forgotPassword);
 router.patch('/password/reset/:token', resetPassword);
 
