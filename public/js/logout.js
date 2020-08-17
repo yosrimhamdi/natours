@@ -1,7 +1,5 @@
 import axios from 'axios';
 
-console.log('logout.js');
-
 const logoutButton = document.querySelector('.nav__el--logout');
 
 const logout = async e => {
