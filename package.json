@@ -6,7 +6,7 @@
   "scripts": {
     "start": "nodemon server.js",
     "start:prod": "set NODE_ENV=production && nodemon server.js",
-    "bundle": "webpack",
+    "webpack": "webpack",
     "debug": "ndb server.js"
   },
   "keywords": [],

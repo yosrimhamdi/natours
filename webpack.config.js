@@ -18,4 +18,5 @@ module.exports = {
     path: `${__dirname}/public/js/bundle`,
   },
   mode: 'development',
+  watch: true,
 };
