@@ -408,6 +408,18 @@ eval("// shim for using process in browser\nvar process = module.exports = {};\n
 
 /***/ }),
 
+/***/ "./public/js/alert/index.js":
+/*!**********************************!*\
+  !*** ./public/js/alert/index.js ***!
+  \**********************************/
+/*! exports provided: showAlert, removeAlert */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"showAlert\", function() { return showAlert; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"removeAlert\", function() { return removeAlert; });\nconst showAlert = (type, message) => {\n  const alertDOM = `<div class=\"alert alert--${type}\">${message}</div>`;\n\n  document.body.insertAdjacentHTML('afterBegin', alertDOM);\n};\n\nconst removeAlert = () => {\n  document.querySelector('.alert').remove();\n};\n\n\n//# sourceURL=webpack:///./public/js/alert/index.js?");
+
+/***/ }),
+
 /***/ "./public/js/logout.js":
 /*!*****************************!*\
   !*** ./public/js/logout.js ***!
@@ -416,7 +428,7 @@ eval("// shim for using process in browser\nvar process = module.exports = {};\n
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ \"./node_modules/axios/index.js\");\n/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);\n\n\nconst logoutButton = document.querySelector('.nav__el--logout');\n\nconst logout = async e => {\n  e.preventDefault();\n\n  try {\n    const response = await axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('http://localhost:3000/api/users/logout');\n\n    console.log(response.data.message);\n    window.location.assign('/');\n  } catch (err) {\n    console.log(err);\n  }\n};\n\nlogoutButton.addEventListener('click', logout);\n\n\n//# sourceURL=webpack:///./public/js/logout.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ \"./node_modules/axios/index.js\");\n/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _alert__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./alert */ \"./public/js/alert/index.js\");\n\n\n\n\nconst logoutButton = document.querySelector('.nav__el--logout');\n\nconst logout = async e => {\n  e.preventDefault();\n\n  try {\n    await axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('http://localhost:3000/api/users/logout');\n\n    window.location.assign('/');\n  } catch (err) {\n    Object(_alert__WEBPACK_IMPORTED_MODULE_1__[\"showAlert\"])('error', 'logout failed.');\n\n    window.setTimeout(() => {\n      Object(_alert__WEBPACK_IMPORTED_MODULE_1__[\"removeAlert\"])();\n    }, 1200);\n  }\n};\n\nlogoutButton.addEventListener('click', logout);\n\n\n//# sourceURL=webpack:///./public/js/logout.js?");
 
 /***/ })
 
