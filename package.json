@@ -4,9 +4,10 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon server.js",
-    "start:prod": "set NODE_ENV=production&& nodemon server.js",
-    "bundle": "webpack",
+    "start:server": "nodemon server.js",
+    "start:webpack": "webpack",
+    "start:prod": "set NODE_ENV=production&& set PORT=3001&& nodemon server.js",
+    "start": "concurrently --kill-others \"npm run start:server\" \"npm run start:webpack\"",
     "debug": "ndb server.js"
   },
   "keywords": [],
@@ -19,6 +20,7 @@
     "axios": "^0.19.2",
     "babel-loader": "^8.1.0",
     "bcryptjs": "^2.4.3",
+    "concurrently": "^5.3.0",
     "cookie-parser": "^1.4.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
