@@ -6,7 +6,7 @@
   "scripts": {
     "start:server": "nodemon server.js",
     "start:webpack": "webpack",
-    "start:prod": "set NODE_ENV=production&& set PORT=3001&& nodemon server.js",
+    "start:prod": "set NODE_ENV=production&& nodemon server.js",
     "start": "concurrently --kill-others \"npm run start:server\" \"npm run start:webpack\"",
     "debug": "ndb server.js"
   },
