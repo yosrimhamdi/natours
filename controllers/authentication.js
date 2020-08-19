@@ -193,7 +193,13 @@ const resetPassword = catchAsync(async (req, res, next) => {
 
 const updatePassword = catchAsync(async (req, res, next) => {
   const { user } = req;
-  const { newPassword, passwordConfirm } = req.body;
+  const { currentPassword, newPassword, passwordConfirm } = req.body;
+
+  const isValidPassword = await user.validatePassword(currentPassword);
+
+  if (!isValidPassword) {
+    return next(new AppError('invalid password.', 401));
+  }
 
   await user.updatePassword(newPassword, passwordConfirm);
 

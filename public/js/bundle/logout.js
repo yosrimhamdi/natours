@@ -458,10 +458,9 @@ eval("/**\n * Copyright (c) 2014-present, Facebook, Inc.\n *\n * This source cod
   !*** ./public/js/alert/index.js ***!
   \**********************************/
 /*! exports provided: showAlert, removeAlert */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports) {
 
-"use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"showAlert\", function() { return showAlert; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"removeAlert\", function() { return removeAlert; });\nvar showAlert = function showAlert(type, message) {\n  var alertDOM = \"<div class=\\\"alert alert--\".concat(type, \"\\\">\").concat(message, \"</div>\");\n  document.body.insertAdjacentHTML('afterBegin', alertDOM);\n};\nvar removeAlert = function removeAlert(time) {\n  window.setTimeout(function () {\n    document.querySelector('.alert').remove();\n  }, time);\n};\n\n//# sourceURL=webpack:///./public/js/alert/index.js?");
+eval("throw new Error(\"Module build failed (from ./node_modules/babel-loader/lib/index.js):\\nError: ENOENT: no such file or directory, open 'E:\\\\DEV_ENV\\\\code\\\\learning area\\\\nodejs\\\\complete-node-bootcamp\\\\natours\\\\natours\\\\public\\\\js\\\\alert\\\\index.js'\");\n\n//# sourceURL=webpack:///./public/js/alert/index.js?");
 
 /***/ }),
 
