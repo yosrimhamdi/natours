@@ -29,7 +29,7 @@ const updatePassword = async e => {
   const newPassword = document.getElementById('password');
   const passwordConfirm = document.getElementById('password-confirm');
 
-  updatePasswordButton.textContent = 'loading..';
+  updatePasswordButton.textContent = 'updating..';
 
   try {
     await users.patch('/admin/update/password', {
