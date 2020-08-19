@@ -16,16 +16,14 @@ const login = async e => {
     });
 
     showAlert('success', response.data.message);
+    removeAlert(1000);
 
     window.setTimeout(() => {
-      removeAlert();
       window.location.assign('/');
     }, 1000);
   } catch (err) {
     showAlert('error', err.response.data.message);
-    window.setTimeout(() => {
-      removeAlert();
-    }, 1200);
+    removeAlert(1200);
   }
 };
 

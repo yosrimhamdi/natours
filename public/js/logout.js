@@ -12,10 +12,7 @@ const logout = async e => {
     window.location.reload(true);
   } catch (err) {
     showAlert('error', 'logout failed.');
-
-    window.setTimeout(() => {
-      removeAlert();
-    }, 1200);
+    removeAlert(1200);
   }
 };
 
