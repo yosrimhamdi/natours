@@ -2,8 +2,9 @@ import users from '../../apis/client/users';
 import { showAlert, removeAlert } from './utils/alert';
 import clrearInputs from './utils/clearInputs';
 
-const updateUserButton = document.querySelector('.change-name');
-const updatePasswordButton = document.querySelector('.change-password');
+const userDataForm = document.querySelector('.form-user-data');
+const userPasswordForm = document.querySelector('.form-user-settings');
+const updatePasswordButton = document.querySelector('.update-password');
 
 const updateUser = async e => {
   e.preventDefault();
@@ -49,5 +50,5 @@ const updatePassword = async e => {
   removeAlert(1100);
 };
 
-updateUserButton.addEventListener('click', updateUser);
-updatePasswordButton.addEventListener('click', updatePassword);
+userDataForm.addEventListener('submit', updateUser);
+userPasswordForm.addEventListener('submit', updatePassword);
