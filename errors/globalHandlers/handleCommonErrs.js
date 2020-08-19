@@ -1,5 +1,5 @@
 module.exports = (err, req, res, next) => {
-  console.log(err);
+  console.error(err);
   req.err = err;
 
   next();
