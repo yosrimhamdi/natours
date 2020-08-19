@@ -1,17 +1,15 @@
-const tours = require('../apis/server/tours');
 const catchAsync = require('../errors/catchAsync');
 const AppError = require('../errors/appError');
+const Tour = require('../models/tour');
 
 const getOverview = catchAsync(async (req, res, next) => {
-  const response = await tours.get('/');
+  const tours = await Tour.find();
 
-  res.status(200).render('overview', { title: 'All Tours', tours: response.data.tours });
+  res.status(200).render('overview', { title: 'All Tours', tours });
 });
 
 const getTour = catchAsync(async (req, res, next) => {
-  const response = await tours.get(`/${req.params.slug}`);
-
-  const { tour } = response.data;
+  const tour = await Tour.findOne({ slug: req.params.slug });
 
   if (!tour) {
     return next(

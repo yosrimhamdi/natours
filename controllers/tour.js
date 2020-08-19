@@ -29,8 +29,8 @@ const getAllTours = catchAsync(async (req, res) => {
   });
 });
 
-const getTourBySlug = catchAsync(async (req, res, next) => {
-  const tour = await Tour.findOne({ slug: req.params.id });
+const getTourById = catchAsync(async (req, res, next) => {
+  const tour = await Tour.findById(req.params.id);
 
   res.status(200).json({
     status: 'success',
@@ -70,7 +70,7 @@ const getTourStats = catchAsync(async (req, res) => {
 
 module.exports = {
   getAllTours,
-  getTourBySlug,
+  getTourById,
   createTour,
   updateTour,
   deleteTour,
