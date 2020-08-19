@@ -4,6 +4,8 @@ export const showAlert = (type, message) => {
   document.body.insertAdjacentHTML('afterBegin', alertDOM);
 };
 
-export const removeAlert = () => {
-  document.querySelector('.alert').remove();
+export const removeAlert = time => {
+  window.setTimeout(() => {
+    document.querySelector('.alert').remove();
+  }, time);
 };

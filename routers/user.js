@@ -10,19 +10,13 @@ const {
 const {
   getUser,
   getUsers,
-  updateName,
-  updateEmail,
+  updateMe,
   deleteMe,
   deleteUser,
   setParamsId,
 } = require('../controllers/user');
 
-const {
-  requireLogIn,
-  requirePassword,
-  restrictTo,
-  logOut,
-} = require('../controllers/authentication');
+const { requireLogIn, restrictTo, logOut } = require('../controllers/authentication');
 
 const router = express.Router();
 
@@ -32,13 +26,12 @@ router.get('/logout', logOut);
 router.post('/password/forgot', forgotPassword);
 router.patch('/password/reset/:token', resetPassword);
 
-router.get('/me', requireLogIn, setParamsId, getUser);
+router.use(requireLogIn);
 
-router.use(requireLogIn, requirePassword);
+router.get('/me', setParamsId, getUser);
 
+router.patch('/admin/update', updateMe);
 router.patch('/admin/update/password', updatePassword);
-router.patch('/admin/update/name', updateName);
-router.patch('/admin/update/email', updateEmail);
 router.delete('/admin/delete', deleteMe);
 
 router.use(restrictTo('admin'));

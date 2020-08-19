@@ -119,11 +119,11 @@ const requirePassword = catchAsync(async (req, res, next) => {
   const { password } = req.body;
   const { user } = req;
 
-  if (!password) return next(new AppError('password is required', 400));
+  if (!password) return next(new AppError('password is required.', 400));
 
   const isValidPassword = await user.validatePassword(password);
 
-  if (!isValidPassword) return next(new AppError('wrong password', 401));
+  if (!isValidPassword) return next(new AppError('wrong password.', 401));
 
   next();
 });

@@ -3,13 +3,13 @@ const catchAsync = require('../errors/catchAsync');
 const AppError = require('../errors/appError');
 const { deleteOne, getAll, getOne } = require('./factory');
 
-const updateName = catchAsync(async (req, res, next) => {
-  const { newName } = req.body;
+const updateMe = catchAsync(async (req, res, next) => {
+  const { email, name } = req.body;
   const { user } = req;
 
-  await User.findByIdAndUpdate(
+  const updatedUser = await User.findByIdAndUpdate(
     user.id,
-    { name: newName },
+    { email, name },
     {
       new: true,
       runValidators: true,
@@ -18,26 +18,7 @@ const updateName = catchAsync(async (req, res, next) => {
 
   res.status(200).json({
     status: 'success',
-    user: 'name updated',
-  });
-});
-
-const updateEmail = catchAsync(async (req, res, next) => {
-  const { newEmail } = req.body;
-  const { user } = req;
-
-  await User.findByIdAndUpdate(
-    user.id,
-    { email: newEmail },
-    {
-      new: true,
-      runValidators: true,
-    }
-  );
-
-  res.status(200).json({
-    status: 'success',
-    user: 'email updated',
+    user: updatedUser,
   });
 });
 
@@ -74,8 +55,7 @@ const deleteUser = deleteOne(User);
 module.exports = {
   getUser,
   getUsers,
-  updateName,
-  updateEmail,
+  updateMe,
   deleteMe,
   deleteUser,
   setParamsId,

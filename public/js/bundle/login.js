@@ -461,7 +461,7 @@ eval("/**\n * Copyright (c) 2014-present, Facebook, Inc.\n *\n * This source cod
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"showAlert\", function() { return showAlert; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"removeAlert\", function() { return removeAlert; });\nvar showAlert = function showAlert(type, message) {\n  var alertDOM = \"<div class=\\\"alert alert--\".concat(type, \"\\\">\").concat(message, \"</div>\");\n  document.body.insertAdjacentHTML('afterBegin', alertDOM);\n};\nvar removeAlert = function removeAlert() {\n  document.querySelector('.alert').remove();\n};\n\n//# sourceURL=webpack:///./public/js/alert/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"showAlert\", function() { return showAlert; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"removeAlert\", function() { return removeAlert; });\nvar showAlert = function showAlert(type, message) {\n  var alertDOM = \"<div class=\\\"alert alert--\".concat(type, \"\\\">\").concat(message, \"</div>\");\n  document.body.insertAdjacentHTML('afterBegin', alertDOM);\n};\nvar removeAlert = function removeAlert(time) {\n  window.setTimeout(function () {\n    document.querySelector('.alert').remove();\n  }, time);\n};\n\n//# sourceURL=webpack:///./public/js/alert/index.js?");
 
 /***/ }),
 
