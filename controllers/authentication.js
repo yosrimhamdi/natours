@@ -12,7 +12,7 @@ const logInUser = (res, statusCode, userId) => {
 
   res.cookie('jwt', token, {
     expries: new Date(Date.now() + JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000),
-    secure: NODE_ENV === 'production',
+    // secure: NODE_ENV === 'production',
     httpOnly: true,
   });
 
