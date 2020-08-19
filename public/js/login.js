@@ -1,5 +1,5 @@
 import users from '../../apis/client/users';
-import { showAlert, removeAlert } from './alert';
+import { showAlert, removeAlert } from './utils/alert';
 
 const form = document.querySelector('.form');
 
