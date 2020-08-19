@@ -9,7 +9,7 @@ const logout = async e => {
   try {
     await users.get('/logout');
 
-    window.location.reload(true);
+    window.location.assign('/');
   } catch (err) {
     showAlert('error', 'logout failed.');
     removeAlert(1200);
