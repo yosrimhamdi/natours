@@ -29,6 +29,8 @@ const updatePassword = async e => {
   const newPassword = document.getElementById('password');
   const passwordConfirm = document.getElementById('password-confirm');
 
+  updatePasswordButton.textContent = 'loading..';
+
   try {
     await users.patch('/admin/update/password', {
       currentPassword: currentPassword.value,
@@ -40,6 +42,8 @@ const updatePassword = async e => {
   } catch (err) {
     showAlert('error', err.response.data.message);
   }
+
+  updatePasswordButton.textContent = 'save password';
 
   clrearInputs(currentPassword, newPassword, passwordConfirm);
   removeAlert(1100);
