@@ -12,7 +12,7 @@ class Distructure {
     const filter = { ...this.query };
     const exclude = ['limit', 'fields', 'sort', 'page'];
 
-    exclude.forEach((element) => {
+    exclude.forEach(element => {
       delete filter[element];
     });
 
@@ -38,7 +38,7 @@ class Distructure {
   add$(filterObject) {
     let filter = JSON.stringify(filterObject);
 
-    filter = filter.replace(/\b(gte|gt|lte|lt)\b/g, (matched) => `$${matched}`);
+    filter = filter.replace(/\b(gte|gt|lte|lt)\b/g, matched => `$${matched}`);
 
     return JSON.parse(filter);
   }
