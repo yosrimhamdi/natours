@@ -1,7 +1,30 @@
+const multer = require('multer');
+
 const User = require('../models/user');
 const catchAsync = require('../errors/catchAsync');
 const AppError = require('../errors/appError');
 const { deleteOne, getAll, getOne } = require('./factory');
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'public/img/users');
+  },
+  filename: (req, file, cb) => {
+    const ext = file.mimetype.split('/')[1];
+
+    cb(null, `user-${req.user._id}-${Date.now()}.${ext}`);
+  },
+});
+
+const fileFilter = (req, file, cb) => {
+  const error = file.mimetype.startsWith('image')
+    ? null
+    : new AppError('not an image, please provide an image.', 400);
+
+  cb(error, file.mimetype.startsWith('image'));
+};
+
+const upload = multer({ storage, fileFilter });
 
 const updateMe = catchAsync(async (req, res, next) => {
   console.log(req.file);
@@ -48,6 +71,8 @@ const setParamsId = (req, res, next) => {
   next();
 };
 
+const uploadUserPhoto = upload.single('photo');
+
 const getUsers = getAll(User);
 
 const getUser = getOne(User);
@@ -61,4 +86,5 @@ module.exports = {
   deleteMe,
   deleteUser,
   setParamsId,
+  uploadUserPhoto,
 };
