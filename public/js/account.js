@@ -1,4 +1,4 @@
-import users from '../../apis/client/users';
+import users from '../../apis/users';
 import { showAlert, removeAlert } from './utils/alert';
 import clrearInputs from './utils/clearInputs';
 
