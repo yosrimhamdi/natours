@@ -6,6 +6,12 @@ const catchAsync = require('../errors/catchAsync');
 const AppError = require('../errors/appError');
 const { deleteOne, getAll, getOne } = require('./factory');
 
+const getUsers = getAll(User);
+
+const getUser = getOne(User);
+
+const deleteUser = deleteOne(User);
+
 const updateSettings = catchAsync(async (req, res, next) => {
   const { email, name } = req.body;
   const { user } = req;
@@ -31,12 +37,6 @@ const setParamsId = (req, res, next) => {
   next();
 };
 
-const getUsers = getAll(User);
-
-const getUser = getOne(User);
-
-const deleteUser = deleteOne(User);
-
 const storage = multer.memoryStorage();
 
 const fileFilter = (req, file, cb) => {
@@ -54,12 +54,6 @@ const upload = multer({ storage, fileFilter });
 
 const uploadUserPhoto = upload.single('photo');
 
-const savePhotoOnUserRecord = catchAsync(async (req, res, next) => {
-  await req.user.updatePhoto(req.file.filename);
-
-  res.status(200).json({ status: 'success', photo: req.user.photo });
-});
-
 const resizeAndSaveToDisk = (req, res, next) => {
   req.file.filename = `user-${req.user._id}.jpeg`;
 
@@ -70,6 +64,12 @@ const resizeAndSaveToDisk = (req, res, next) => {
 
   next();
 };
+
+const savePhotoOnUserRecord = catchAsync(async (req, res, next) => {
+  await req.user.updatePhoto(req.file.filename);
+
+  res.status(200).json({ status: 'success', photo: req.user.photo });
+});
 
 module.exports = {
   getUser,
