@@ -81,22 +81,10 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "./public/js/account.js");
+/******/ 	return __webpack_require__(__webpack_require__.s = "./public/js/assets/account/account.js");
 /******/ })
 /************************************************************************/
 /******/ ({
-
-/***/ "./apis/client/users.js":
-/*!******************************!*\
-  !*** ./apis/client/users.js ***!
-  \******************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ \"./node_modules/axios/index.js\");\n/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (axios__WEBPACK_IMPORTED_MODULE_0___default.a.create({\n  baseURL: 'http://localhost:3000/api/users'\n}));\n\n//# sourceURL=webpack:///./apis/client/users.js?");
-
-/***/ }),
 
 /***/ "./node_modules/@babel/runtime/helpers/asyncToGenerator.js":
 /*!*****************************************************************!*\
@@ -453,38 +441,86 @@ eval("/**\n * Copyright (c) 2014-present, Facebook, Inc.\n *\n * This source cod
 
 /***/ }),
 
-/***/ "./public/js/account.js":
-/*!******************************!*\
-  !*** ./public/js/account.js ***!
-  \******************************/
+/***/ "./public/js/assets/account/account.js":
+/*!*********************************************!*\
+  !*** ./public/js/assets/account/account.js ***!
+  \*********************************************/
 /*! no exports provided */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ \"./node_modules/@babel/runtime/regenerator/index.js\");\n/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ \"./node_modules/@babel/runtime/helpers/asyncToGenerator.js\");\n/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__);\n/* harmony import */ var _apis_client_users__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../apis/client/users */ \"./apis/client/users.js\");\n/* harmony import */ var _utils_alert__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./utils/alert */ \"./public/js/utils/alert.js\");\n/* harmony import */ var _utils_clearInputs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./utils/clearInputs */ \"./public/js/utils/clearInputs.js\");\n/* harmony import */ var _utils_clearInputs__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_utils_clearInputs__WEBPACK_IMPORTED_MODULE_4__);\n\n\n\n\n\nvar userDataForm = document.querySelector('.form-user-data');\nvar userPasswordForm = document.querySelector('.form-user-settings');\nvar updatePasswordButton = document.querySelector('.update-password');\nvar photoInput = document.getElementById('photo-input');\n\nvar updateUser = /*#__PURE__*/function () {\n  var _ref = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(e) {\n    var name, email;\n    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {\n      while (1) {\n        switch (_context.prev = _context.next) {\n          case 0:\n            e.preventDefault();\n            name = document.getElementById('name').value;\n            email = document.getElementById('email').value;\n            _context.prev = 3;\n            _context.next = 6;\n            return _apis_client_users__WEBPACK_IMPORTED_MODULE_2__[\"default\"].patch('/admin/update', {\n              name: name,\n              email: email\n            });\n\n          case 6:\n            Object(_utils_alert__WEBPACK_IMPORTED_MODULE_3__[\"showAlert\"])('success', 'updated.');\n            Object(_utils_alert__WEBPACK_IMPORTED_MODULE_3__[\"removeAlert\"])(1100);\n            _context.next = 14;\n            break;\n\n          case 10:\n            _context.prev = 10;\n            _context.t0 = _context[\"catch\"](3);\n            Object(_utils_alert__WEBPACK_IMPORTED_MODULE_3__[\"showAlert\"])('error', _context.t0.response.data.message);\n            Object(_utils_alert__WEBPACK_IMPORTED_MODULE_3__[\"removeAlert\"])(3000);\n\n          case 14:\n          case \"end\":\n            return _context.stop();\n        }\n      }\n    }, _callee, null, [[3, 10]]);\n  }));\n\n  return function updateUser(_x) {\n    return _ref.apply(this, arguments);\n  };\n}();\n\nvar updatePassword = /*#__PURE__*/function () {\n  var _ref2 = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(e) {\n    var currentPassword, newPassword, passwordConfirm;\n    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {\n      while (1) {\n        switch (_context2.prev = _context2.next) {\n          case 0:\n            e.preventDefault();\n            currentPassword = document.getElementById('password-current');\n            newPassword = document.getElementById('password');\n            passwordConfirm = document.getElementById('password-confirm');\n            updatePasswordButton.textContent = 'updating..';\n            _context2.prev = 5;\n            _context2.next = 8;\n            return _apis_client_users__WEBPACK_IMPORTED_MODULE_2__[\"default\"].patch('/admin/update/password', {\n              currentPassword: currentPassword.value,\n              newPassword: newPassword.value,\n              passwordConfirm: passwordConfirm.value\n            });\n\n          case 8:\n            Object(_utils_alert__WEBPACK_IMPORTED_MODULE_3__[\"showAlert\"])('success', 'password updated.');\n            _context2.next = 14;\n            break;\n\n          case 11:\n            _context2.prev = 11;\n            _context2.t0 = _context2[\"catch\"](5);\n            Object(_utils_alert__WEBPACK_IMPORTED_MODULE_3__[\"showAlert\"])('error', _context2.t0.response.data.message);\n\n          case 14:\n            updatePasswordButton.textContent = 'save password';\n            _utils_clearInputs__WEBPACK_IMPORTED_MODULE_4___default()(currentPassword, newPassword, passwordConfirm);\n            Object(_utils_alert__WEBPACK_IMPORTED_MODULE_3__[\"removeAlert\"])(1100);\n\n          case 17:\n          case \"end\":\n            return _context2.stop();\n        }\n      }\n    }, _callee2, null, [[5, 11]]);\n  }));\n\n  return function updatePassword(_x2) {\n    return _ref2.apply(this, arguments);\n  };\n}();\n\nuserDataForm.addEventListener('submit', updateUser);\nuserPasswordForm.addEventListener('submit', updatePassword);\nphotoInput.addEventListener('change', /*#__PURE__*/function () {\n  var _ref3 = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(e) {\n    var form, response;\n    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {\n      while (1) {\n        switch (_context3.prev = _context3.next) {\n          case 0:\n            form = new FormData();\n            form.append('photo', e.target.files[0]);\n            _context3.prev = 2;\n            _context3.next = 5;\n            return _apis_client_users__WEBPACK_IMPORTED_MODULE_2__[\"default\"].patch('/admin/update/photo', form);\n\n          case 5:\n            response = _context3.sent;\n            console.log(response.data);\n            _context3.next = 12;\n            break;\n\n          case 9:\n            _context3.prev = 9;\n            _context3.t0 = _context3[\"catch\"](2);\n            console.log(_context3.t0.response.data.message);\n\n          case 12:\n          case \"end\":\n            return _context3.stop();\n        }\n      }\n    }, _callee3, null, [[2, 9]]);\n  }));\n\n  return function (_x3) {\n    return _ref3.apply(this, arguments);\n  };\n}());\n\n//# sourceURL=webpack:///./public/js/account.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _modules_updateUser__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modules/updateUser */ \"./public/js/assets/account/modules/updateUser.js\");\n/* harmony import */ var _modules_updatePassword__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/updatePassword */ \"./public/js/assets/account/modules/updatePassword.js\");\n/* harmony import */ var _modules_updatePhoto__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/updatePhoto */ \"./public/js/assets/account/modules/updatePhoto.js\");\n\n\n\nvar userDataForm = document.querySelector('.form-user-data');\nvar userPasswordForm = document.querySelector('.form-user-settings');\nvar photoInput = document.getElementById('photo-input');\nuserDataForm.addEventListener('submit', _modules_updateUser__WEBPACK_IMPORTED_MODULE_0__[\"default\"]);\nuserPasswordForm.addEventListener('submit', _modules_updatePassword__WEBPACK_IMPORTED_MODULE_1__[\"default\"]);\nphotoInput.addEventListener('change', _modules_updatePhoto__WEBPACK_IMPORTED_MODULE_2__[\"default\"]);\n\n//# sourceURL=webpack:///./public/js/assets/account/account.js?");
 
 /***/ }),
 
-/***/ "./public/js/utils/alert.js":
-/*!**********************************!*\
-  !*** ./public/js/utils/alert.js ***!
-  \**********************************/
+/***/ "./public/js/assets/account/modules/updatePassword.js":
+/*!************************************************************!*\
+  !*** ./public/js/assets/account/modules/updatePassword.js ***!
+  \************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ \"./node_modules/@babel/runtime/regenerator/index.js\");\n/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ \"./node_modules/@babel/runtime/helpers/asyncToGenerator.js\");\n/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__);\n/* harmony import */ var _apis_users__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../apis/users */ \"./public/js/assets/apis/users.js\");\n/* harmony import */ var _utils_alert__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../utils/alert */ \"./public/js/assets/utils/alert.js\");\n/* harmony import */ var _utils_clearInputs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../utils/clearInputs */ \"./public/js/assets/utils/clearInputs.js\");\n/* harmony import */ var _utils_clearInputs__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_utils_clearInputs__WEBPACK_IMPORTED_MODULE_4__);\n\n\n\n\n\nvar updatePasswordButton = document.querySelector('.update-password');\n\nvar updatePassword = /*#__PURE__*/function () {\n  var _ref = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(e) {\n    var currentPassword, newPassword, passwordConfirm;\n    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {\n      while (1) {\n        switch (_context.prev = _context.next) {\n          case 0:\n            e.preventDefault();\n            currentPassword = document.getElementById('password-current');\n            newPassword = document.getElementById('password');\n            passwordConfirm = document.getElementById('password-confirm');\n            updatePasswordButton.textContent = 'updating..';\n            _context.prev = 5;\n            _context.next = 8;\n            return _apis_users__WEBPACK_IMPORTED_MODULE_2__[\"default\"].patch('/admin/update/password', {\n              currentPassword: currentPassword.value,\n              newPassword: newPassword.value,\n              passwordConfirm: passwordConfirm.value\n            });\n\n          case 8:\n            Object(_utils_alert__WEBPACK_IMPORTED_MODULE_3__[\"showAlert\"])('success', 'password updated.');\n            _context.next = 14;\n            break;\n\n          case 11:\n            _context.prev = 11;\n            _context.t0 = _context[\"catch\"](5);\n            Object(_utils_alert__WEBPACK_IMPORTED_MODULE_3__[\"showAlert\"])('error', _context.t0.response.data.message);\n\n          case 14:\n            updatePasswordButton.textContent = 'save password';\n            _utils_clearInputs__WEBPACK_IMPORTED_MODULE_4___default()(currentPassword, newPassword, passwordConfirm);\n            Object(_utils_alert__WEBPACK_IMPORTED_MODULE_3__[\"removeAlert\"])(1100);\n\n          case 17:\n          case \"end\":\n            return _context.stop();\n        }\n      }\n    }, _callee, null, [[5, 11]]);\n  }));\n\n  return function updatePassword(_x) {\n    return _ref.apply(this, arguments);\n  };\n}();\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (updatePassword);\n\n//# sourceURL=webpack:///./public/js/assets/account/modules/updatePassword.js?");
+
+/***/ }),
+
+/***/ "./public/js/assets/account/modules/updatePhoto.js":
+/*!*********************************************************!*\
+  !*** ./public/js/assets/account/modules/updatePhoto.js ***!
+  \*********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ \"./node_modules/@babel/runtime/regenerator/index.js\");\n/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ \"./node_modules/@babel/runtime/helpers/asyncToGenerator.js\");\n/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__);\n/* harmony import */ var _apis_users__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../apis/users */ \"./public/js/assets/apis/users.js\");\n\n\n\n\nvar updatePhoto = /*#__PURE__*/function () {\n  var _ref = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(e) {\n    var form, response;\n    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {\n      while (1) {\n        switch (_context.prev = _context.next) {\n          case 0:\n            form = new FormData();\n            form.append('photo', e.target.files[0]);\n            _context.prev = 2;\n            _context.next = 5;\n            return _apis_users__WEBPACK_IMPORTED_MODULE_2__[\"default\"].patch('/admin/update/photo', form);\n\n          case 5:\n            response = _context.sent;\n            console.log(response.data);\n            _context.next = 12;\n            break;\n\n          case 9:\n            _context.prev = 9;\n            _context.t0 = _context[\"catch\"](2);\n            console.log(_context.t0.response.data.message);\n\n          case 12:\n          case \"end\":\n            return _context.stop();\n        }\n      }\n    }, _callee, null, [[2, 9]]);\n  }));\n\n  return function updatePhoto(_x) {\n    return _ref.apply(this, arguments);\n  };\n}();\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (updatePhoto);\n\n//# sourceURL=webpack:///./public/js/assets/account/modules/updatePhoto.js?");
+
+/***/ }),
+
+/***/ "./public/js/assets/account/modules/updateUser.js":
+/*!********************************************************!*\
+  !*** ./public/js/assets/account/modules/updateUser.js ***!
+  \********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ \"./node_modules/@babel/runtime/regenerator/index.js\");\n/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ \"./node_modules/@babel/runtime/helpers/asyncToGenerator.js\");\n/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__);\n/* harmony import */ var _apis_users__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../apis/users */ \"./public/js/assets/apis/users.js\");\n/* harmony import */ var _utils_alert__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../utils/alert */ \"./public/js/assets/utils/alert.js\");\n\n\n\n\n\nvar updateUser = /*#__PURE__*/function () {\n  var _ref = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(e) {\n    var name, email;\n    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {\n      while (1) {\n        switch (_context.prev = _context.next) {\n          case 0:\n            e.preventDefault();\n            name = document.getElementById('name').value;\n            email = document.getElementById('email').value;\n            _context.prev = 3;\n            _context.next = 6;\n            return _apis_users__WEBPACK_IMPORTED_MODULE_2__[\"default\"].patch('/admin/update', {\n              name: name,\n              email: email\n            });\n\n          case 6:\n            Object(_utils_alert__WEBPACK_IMPORTED_MODULE_3__[\"showAlert\"])('success', 'updated.');\n            Object(_utils_alert__WEBPACK_IMPORTED_MODULE_3__[\"removeAlert\"])(1100);\n            _context.next = 14;\n            break;\n\n          case 10:\n            _context.prev = 10;\n            _context.t0 = _context[\"catch\"](3);\n            Object(_utils_alert__WEBPACK_IMPORTED_MODULE_3__[\"showAlert\"])('error', _context.t0.response.data.message);\n            Object(_utils_alert__WEBPACK_IMPORTED_MODULE_3__[\"removeAlert\"])(3000);\n\n          case 14:\n          case \"end\":\n            return _context.stop();\n        }\n      }\n    }, _callee, null, [[3, 10]]);\n  }));\n\n  return function updateUser(_x) {\n    return _ref.apply(this, arguments);\n  };\n}();\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (updateUser);\n\n//# sourceURL=webpack:///./public/js/assets/account/modules/updateUser.js?");
+
+/***/ }),
+
+/***/ "./public/js/assets/apis/users.js":
+/*!****************************************!*\
+  !*** ./public/js/assets/apis/users.js ***!
+  \****************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ \"./node_modules/axios/index.js\");\n/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (axios__WEBPACK_IMPORTED_MODULE_0___default.a.create({\n  baseURL: 'http://localhost:3000/api/users'\n}));\n\n//# sourceURL=webpack:///./public/js/assets/apis/users.js?");
+
+/***/ }),
+
+/***/ "./public/js/assets/utils/alert.js":
+/*!*****************************************!*\
+  !*** ./public/js/assets/utils/alert.js ***!
+  \*****************************************/
 /*! exports provided: showAlert, removeAlert */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"showAlert\", function() { return showAlert; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"removeAlert\", function() { return removeAlert; });\nvar showAlert = function showAlert(type, message) {\n  var alertDOM = \"<div class=\\\"alert alert--\".concat(type, \"\\\">\").concat(message, \"</div>\");\n  document.body.insertAdjacentHTML('afterBegin', alertDOM);\n};\nvar removeAlert = function removeAlert(time) {\n  window.setTimeout(function () {\n    document.querySelector('.alert').remove();\n  }, time);\n};\n\n//# sourceURL=webpack:///./public/js/utils/alert.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"showAlert\", function() { return showAlert; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"removeAlert\", function() { return removeAlert; });\nvar showAlert = function showAlert(type, message) {\n  var alertDOM = \"<div class=\\\"alert alert--\".concat(type, \"\\\">\").concat(message, \"</div>\");\n  document.body.insertAdjacentHTML('afterBegin', alertDOM);\n};\nvar removeAlert = function removeAlert(time) {\n  window.setTimeout(function () {\n    document.querySelector('.alert').remove();\n  }, time);\n};\n\n//# sourceURL=webpack:///./public/js/assets/utils/alert.js?");
 
 /***/ }),
 
-/***/ "./public/js/utils/clearInputs.js":
-/*!****************************************!*\
-  !*** ./public/js/utils/clearInputs.js ***!
-  \****************************************/
+/***/ "./public/js/assets/utils/clearInputs.js":
+/*!***********************************************!*\
+  !*** ./public/js/assets/utils/clearInputs.js ***!
+  \***********************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-eval("module.exports = function () {\n  for (var _len = arguments.length, inputs = new Array(_len), _key = 0; _key < _len; _key++) {\n    inputs[_key] = arguments[_key];\n  }\n\n  inputs.forEach(function (input) {\n    input.value = '';\n  });\n};\n\n//# sourceURL=webpack:///./public/js/utils/clearInputs.js?");
+eval("module.exports = function () {\n  for (var _len = arguments.length, inputs = new Array(_len), _key = 0; _key < _len; _key++) {\n    inputs[_key] = arguments[_key];\n  }\n\n  inputs.forEach(function (input) {\n    input.value = '';\n  });\n};\n\n//# sourceURL=webpack:///./public/js/assets/utils/clearInputs.js?");
 
 /***/ })
 

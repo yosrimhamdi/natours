@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "./public/js/mapbox.js");
+/******/ 	return __webpack_require__(__webpack_require__.s = "./public/js/assets/mapbox.js");
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -97,15 +97,15 @@ eval("/* Mapbox GL JS is licensed under the 3-Clause BSD License. Full text of l
 
 /***/ }),
 
-/***/ "./public/js/mapbox.js":
-/*!*****************************!*\
-  !*** ./public/js/mapbox.js ***!
-  \*****************************/
+/***/ "./public/js/assets/mapbox.js":
+/*!************************************!*\
+  !*** ./public/js/assets/mapbox.js ***!
+  \************************************/
 /*! no exports provided */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var mapbox_gl__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! mapbox-gl */ \"./node_modules/mapbox-gl/dist/mapbox-gl.js\");\n/* harmony import */ var mapbox_gl__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(mapbox_gl__WEBPACK_IMPORTED_MODULE_0__);\n\nvar locations = JSON.parse(document.getElementById('map').dataset.locations);\nmapbox_gl__WEBPACK_IMPORTED_MODULE_0___default.a.accessToken = 'pk.eyJ1IjoieW9zcmltaGFtZGkiLCJhIjoiY2tkdnFsb2s5MDlxOTMwcWk0NXRlcm96bSJ9.5L4RkN0Ppcw8MzGGI_vA9g';\nvar map = new mapbox_gl__WEBPACK_IMPORTED_MODULE_0___default.a.Map({\n  container: 'map',\n  style: 'mapbox://styles/yosrimhamdi/ckdvqw0rq2ele19lllukvdiqd',\n  scrollZoom: false\n});\nvar bounds = new mapbox_gl__WEBPACK_IMPORTED_MODULE_0___default.a.LngLatBounds();\nlocations.forEach(function (loc) {\n  // Create marker\n  var el = document.createElement('div');\n  el.className = 'marker'; // Add marker\n\n  new mapbox_gl__WEBPACK_IMPORTED_MODULE_0___default.a.Marker({\n    element: el,\n    anchor: 'bottom'\n  }).setLngLat(loc.coordinates).addTo(map); // Add popup\n\n  new mapbox_gl__WEBPACK_IMPORTED_MODULE_0___default.a.Popup({\n    offset: 35\n  }).setLngLat(loc.coordinates).setHTML(\"<p>Day \".concat(loc.day, \": \").concat(loc.description, \"</p>\")).addTo(map); // Extend map bounds to include current location\n\n  bounds.extend(loc.coordinates);\n});\nmap.fitBounds(bounds, {\n  padding: {\n    top: 200,\n    bottom: 150,\n    left: 100,\n    right: 100\n  }\n});\n\n//# sourceURL=webpack:///./public/js/mapbox.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var mapbox_gl__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! mapbox-gl */ \"./node_modules/mapbox-gl/dist/mapbox-gl.js\");\n/* harmony import */ var mapbox_gl__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(mapbox_gl__WEBPACK_IMPORTED_MODULE_0__);\n\nvar locations = JSON.parse(document.getElementById('map').dataset.locations);\nmapbox_gl__WEBPACK_IMPORTED_MODULE_0___default.a.accessToken = 'pk.eyJ1IjoieW9zcmltaGFtZGkiLCJhIjoiY2tkdnFsb2s5MDlxOTMwcWk0NXRlcm96bSJ9.5L4RkN0Ppcw8MzGGI_vA9g';\nvar map = new mapbox_gl__WEBPACK_IMPORTED_MODULE_0___default.a.Map({\n  container: 'map',\n  style: 'mapbox://styles/yosrimhamdi/ckdvqw0rq2ele19lllukvdiqd',\n  scrollZoom: false\n});\nvar bounds = new mapbox_gl__WEBPACK_IMPORTED_MODULE_0___default.a.LngLatBounds();\nlocations.forEach(function (loc) {\n  // Create marker\n  var el = document.createElement('div');\n  el.className = 'marker'; // Add marker\n\n  new mapbox_gl__WEBPACK_IMPORTED_MODULE_0___default.a.Marker({\n    element: el,\n    anchor: 'bottom'\n  }).setLngLat(loc.coordinates).addTo(map); // Add popup\n\n  new mapbox_gl__WEBPACK_IMPORTED_MODULE_0___default.a.Popup({\n    offset: 35\n  }).setLngLat(loc.coordinates).setHTML(\"<p>Day \".concat(loc.day, \": \").concat(loc.description, \"</p>\")).addTo(map); // Extend map bounds to include current location\n\n  bounds.extend(loc.coordinates);\n});\nmap.fitBounds(bounds, {\n  padding: {\n    top: 200,\n    bottom: 150,\n    left: 100,\n    right: 100\n  }\n});\n\n//# sourceURL=webpack:///./public/js/assets/mapbox.js?");
 
 /***/ })
 

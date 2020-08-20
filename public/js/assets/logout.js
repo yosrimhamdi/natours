@@ -1,4 +1,4 @@
-import users from '../../apis/users';
+import users from './apis/users';
 import { showAlert, removeAlert } from './utils/alert';
 
 const logoutButton = document.querySelector('.nav__el--logout');

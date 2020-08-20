@@ -81,22 +81,10 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "./public/js/logout.js");
+/******/ 	return __webpack_require__(__webpack_require__.s = "./public/js/assets/logout.js");
 /******/ })
 /************************************************************************/
 /******/ ({
-
-/***/ "./apis/client/users.js":
-/*!******************************!*\
-  !*** ./apis/client/users.js ***!
-  \******************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ \"./node_modules/axios/index.js\");\n/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (axios__WEBPACK_IMPORTED_MODULE_0___default.a.create({\n  baseURL: 'http://localhost:3000/api/users'\n}));\n\n//# sourceURL=webpack:///./apis/client/users.js?");
-
-/***/ }),
 
 /***/ "./node_modules/@babel/runtime/helpers/asyncToGenerator.js":
 /*!*****************************************************************!*\
@@ -453,27 +441,39 @@ eval("/**\n * Copyright (c) 2014-present, Facebook, Inc.\n *\n * This source cod
 
 /***/ }),
 
-/***/ "./public/js/logout.js":
-/*!*****************************!*\
-  !*** ./public/js/logout.js ***!
-  \*****************************/
+/***/ "./public/js/assets/apis/users.js":
+/*!****************************************!*\
+  !*** ./public/js/assets/apis/users.js ***!
+  \****************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ \"./node_modules/axios/index.js\");\n/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (axios__WEBPACK_IMPORTED_MODULE_0___default.a.create({\n  baseURL: 'http://localhost:3000/api/users'\n}));\n\n//# sourceURL=webpack:///./public/js/assets/apis/users.js?");
+
+/***/ }),
+
+/***/ "./public/js/assets/logout.js":
+/*!************************************!*\
+  !*** ./public/js/assets/logout.js ***!
+  \************************************/
 /*! no exports provided */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ \"./node_modules/@babel/runtime/regenerator/index.js\");\n/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ \"./node_modules/@babel/runtime/helpers/asyncToGenerator.js\");\n/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__);\n/* harmony import */ var _apis_client_users__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../apis/client/users */ \"./apis/client/users.js\");\n/* harmony import */ var _utils_alert__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./utils/alert */ \"./public/js/utils/alert.js\");\n\n\n\n\nvar logoutButton = document.querySelector('.nav__el--logout');\n\nvar logout = /*#__PURE__*/function () {\n  var _ref = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(e) {\n    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {\n      while (1) {\n        switch (_context.prev = _context.next) {\n          case 0:\n            e.preventDefault();\n            _context.prev = 1;\n            _context.next = 4;\n            return _apis_client_users__WEBPACK_IMPORTED_MODULE_2__[\"default\"].get('/logout');\n\n          case 4:\n            window.location.assign('/');\n            _context.next = 11;\n            break;\n\n          case 7:\n            _context.prev = 7;\n            _context.t0 = _context[\"catch\"](1);\n            Object(_utils_alert__WEBPACK_IMPORTED_MODULE_3__[\"showAlert\"])('error', 'logout failed.');\n            Object(_utils_alert__WEBPACK_IMPORTED_MODULE_3__[\"removeAlert\"])(1200);\n\n          case 11:\n          case \"end\":\n            return _context.stop();\n        }\n      }\n    }, _callee, null, [[1, 7]]);\n  }));\n\n  return function logout(_x) {\n    return _ref.apply(this, arguments);\n  };\n}();\n\nlogoutButton.addEventListener('click', logout);\n\n//# sourceURL=webpack:///./public/js/logout.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ \"./node_modules/@babel/runtime/regenerator/index.js\");\n/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ \"./node_modules/@babel/runtime/helpers/asyncToGenerator.js\");\n/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__);\n/* harmony import */ var _apis_users__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./apis/users */ \"./public/js/assets/apis/users.js\");\n/* harmony import */ var _utils_alert__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./utils/alert */ \"./public/js/assets/utils/alert.js\");\n\n\n\n\nvar logoutButton = document.querySelector('.nav__el--logout');\n\nvar logout = /*#__PURE__*/function () {\n  var _ref = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(e) {\n    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {\n      while (1) {\n        switch (_context.prev = _context.next) {\n          case 0:\n            e.preventDefault();\n            _context.prev = 1;\n            _context.next = 4;\n            return _apis_users__WEBPACK_IMPORTED_MODULE_2__[\"default\"].get('/logout');\n\n          case 4:\n            window.location.assign('/');\n            _context.next = 11;\n            break;\n\n          case 7:\n            _context.prev = 7;\n            _context.t0 = _context[\"catch\"](1);\n            Object(_utils_alert__WEBPACK_IMPORTED_MODULE_3__[\"showAlert\"])('error', 'logout failed.');\n            Object(_utils_alert__WEBPACK_IMPORTED_MODULE_3__[\"removeAlert\"])(1200);\n\n          case 11:\n          case \"end\":\n            return _context.stop();\n        }\n      }\n    }, _callee, null, [[1, 7]]);\n  }));\n\n  return function logout(_x) {\n    return _ref.apply(this, arguments);\n  };\n}();\n\nlogoutButton.addEventListener('click', logout);\n\n//# sourceURL=webpack:///./public/js/assets/logout.js?");
 
 /***/ }),
 
-/***/ "./public/js/utils/alert.js":
-/*!**********************************!*\
-  !*** ./public/js/utils/alert.js ***!
-  \**********************************/
+/***/ "./public/js/assets/utils/alert.js":
+/*!*****************************************!*\
+  !*** ./public/js/assets/utils/alert.js ***!
+  \*****************************************/
 /*! exports provided: showAlert, removeAlert */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"showAlert\", function() { return showAlert; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"removeAlert\", function() { return removeAlert; });\nvar showAlert = function showAlert(type, message) {\n  var alertDOM = \"<div class=\\\"alert alert--\".concat(type, \"\\\">\").concat(message, \"</div>\");\n  document.body.insertAdjacentHTML('afterBegin', alertDOM);\n};\nvar removeAlert = function removeAlert(time) {\n  window.setTimeout(function () {\n    document.querySelector('.alert').remove();\n  }, time);\n};\n\n//# sourceURL=webpack:///./public/js/utils/alert.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"showAlert\", function() { return showAlert; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"removeAlert\", function() { return removeAlert; });\nvar showAlert = function showAlert(type, message) {\n  var alertDOM = \"<div class=\\\"alert alert--\".concat(type, \"\\\">\").concat(message, \"</div>\");\n  document.body.insertAdjacentHTML('afterBegin', alertDOM);\n};\nvar removeAlert = function removeAlert(time) {\n  window.setTimeout(function () {\n    document.querySelector('.alert').remove();\n  }, time);\n};\n\n//# sourceURL=webpack:///./public/js/assets/utils/alert.js?");
 
 /***/ })
 
