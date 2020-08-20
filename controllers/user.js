@@ -4,6 +4,8 @@ const AppError = require('../errors/appError');
 const { deleteOne, getAll, getOne } = require('./factory');
 
 const updateMe = catchAsync(async (req, res, next) => {
+  console.log(req.file);
+  console.log(req.body);
   const { email, name } = req.body;
   const { user } = req;
 
