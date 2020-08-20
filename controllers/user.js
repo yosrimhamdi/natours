@@ -44,7 +44,7 @@ const fileFilter = (req, file, cb) => {
   const isImage = file.mimetype.startsWith('image');
 
   if (!isImage) {
-    err = new AppError('not an image, please provide an image', 400);
+    err = new AppError('Not an image. Please provide an image.', 400);
   }
 
   cb(err, isImage);

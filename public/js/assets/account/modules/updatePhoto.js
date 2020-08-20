@@ -1,4 +1,6 @@
 import users from '../../apis/users';
+import { showAlert, removeAlert } from '../../utils/alert';
+import UpdateUIUserImage from './updateUIUserImage';
 
 const updatePhoto = async e => {
   const form = new FormData();
@@ -8,9 +10,12 @@ const updatePhoto = async e => {
   try {
     const response = await users.patch('/admin/update/photo', form);
 
-    console.log(response.data);
+    UpdateUIUserImage(response.data.photo);
+    showAlert('success', 'Image updated successfully.');
+    removeAlert(3000);
   } catch (err) {
-    console.log(err.response.data.message);
+    showAlert('error', err.response.data.message);
+    removeAlert(3000);
   }
 };
 
