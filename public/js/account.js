@@ -5,6 +5,7 @@ import clrearInputs from './utils/clearInputs';
 const userDataForm = document.querySelector('.form-user-data');
 const userPasswordForm = document.querySelector('.form-user-settings');
 const updatePasswordButton = document.querySelector('.update-password');
+const photoInput = document.getElementById('photo-input');
 
 const updateUser = async e => {
   e.preventDefault();
@@ -52,3 +53,17 @@ const updatePassword = async e => {
 
 userDataForm.addEventListener('submit', updateUser);
 userPasswordForm.addEventListener('submit', updatePassword);
+
+photoInput.addEventListener('change', async e => {
+  const form = new FormData();
+
+  form.append('photo', e.target.files[0]);
+
+  try {
+    const response = await users.patch('/admin/update/photo', form);
+
+    console.log(response.data);
+  } catch (err) {
+    console.log(err.response.data.message);
+  }
+});
