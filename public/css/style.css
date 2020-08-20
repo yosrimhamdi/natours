@@ -264,6 +264,11 @@ body {
   background-color: #7dd56f;
 }
 
+.btn-text {
+  transition: all 140ms;
+  cursor: pointer;
+}
+
 .btn-text:link,
 .btn-text:visited {
   color: #55c57a;

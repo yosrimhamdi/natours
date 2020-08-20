@@ -10,11 +10,12 @@ const {
 const {
   getUser,
   getUsers,
-  updateMe,
-  deleteMe,
+  updateSettings,
   deleteUser,
   setParamsId,
   uploadUserPhoto,
+  savePhotoOnUserRecord,
+  resizeAndSaveToDisk,
 } = require('../controllers/user');
 
 const { requireLogIn, restrictTo, logOut } = require('../controllers/authentication');
@@ -31,9 +32,14 @@ router.use(requireLogIn);
 
 router.get('/me', setParamsId, getUser);
 
-router.patch('/admin/update', uploadUserPhoto, updateMe);
+router.patch('/admin/update', updateSettings);
+router.patch(
+  '/admin/update/photo',
+  uploadUserPhoto,
+  resizeAndSaveToDisk,
+  savePhotoOnUserRecord
+);
 router.patch('/admin/update/password', updatePassword);
-router.delete('/admin/delete', deleteMe);
 
 router.use(restrictTo('admin'));
 

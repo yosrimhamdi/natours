@@ -42,7 +42,10 @@ const userSchema = new mongoose.Schema({
       message: 'passwords do not match.',
     },
   },
-  photo: String,
+  photo: {
+    type: String,
+    default: 'default.jpg',
+  },
   passwordChangedAt: Date,
   passwordResetToken: String,
   passwordRestExpiresIn: Date,
@@ -123,6 +126,12 @@ userSchema.methods.updatePassword = function (password, passwordConfirm) {
   this.passwordConfirm = passwordConfirm;
 
   return this.save();
+};
+
+userSchema.methods.updatePhoto = async function (photo) {
+  this.photo = photo;
+
+  return await this.save({ validateBeforeSave: false });
 };
 
 const User = mongoose.model('User', userSchema);
