@@ -12,11 +12,11 @@ const updatePhoto = async e => {
 
     UpdateUIUserImage(response.data.photo);
     showAlert('success', 'Image updated successfully.');
-    removeAlert(3000);
   } catch (err) {
     showAlert('error', err.response.data.message);
-    removeAlert(3000);
   }
+
+  removeAlert(3000);
 };
 
 export default updatePhoto;
