@@ -34,7 +34,7 @@ const updateMe = catchAsync(async (req, res, next) => {
 
   const updatedUser = await User.findByIdAndUpdate(
     user.id,
-    { email, name },
+    { email, name, photo: req.file.filename },
     {
       new: true,
       runValidators: true,
