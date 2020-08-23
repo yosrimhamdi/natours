@@ -69,16 +69,16 @@ const removePreviousImageOnFs = (req, res, next) => {
   next();
 };
 
-const resizeAndSaveToDisk = (req, res, next) => {
+const resizeAndSaveToDisk = catchAsync(async (req, res, next) => {
   req.file.filename = `user-${req.user._id}-${Date.now()}.jpeg`;
 
-  sharp(req.file.buffer)
+  await sharp(req.file.buffer)
     .resize(500, 500)
     .toFormat('jpeg')
     .toFile(`public/img/users/${req.file.filename}`);
 
   next();
-};
+});
 
 const savePhotoOnUserRecord = catchAsync(async (req, res, next) => {
   await req.user.updatePhoto(req.file.filename);

@@ -104,10 +104,10 @@ const resizeAndSaveTourImageOnFs = catchAsync(async (req, res, next) => {
 
   await mkdirp(path);
 
-  sharp(imageCover.buffer).toFormat('jpeg').toFile(`${path}/cover.jpeg`);
+  await sharp(imageCover.buffer).toFormat('jpeg').toFile(`${path}/cover.jpeg`);
 
-  images.forEach(({ buffer }, i) => {
-    sharp(buffer)
+  images.forEach(async ({ buffer }, i) => {
+    await sharp(buffer)
       .toFormat('jpeg')
       .toFile(`${path}/img-${i + 1}.jpeg`);
   });
