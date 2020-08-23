@@ -1,5 +1,6 @@
 const multer = require('multer');
 const sharp = require('sharp');
+const fs = require('fs');
 
 const User = require('../models/user');
 const catchAsync = require('../errors/catchAsync');
@@ -54,6 +55,20 @@ const upload = multer({ storage, fileFilter });
 
 const uploadUserPhoto = upload.single('photo');
 
+const removePreviousImageOnFs = (req, res, next) => {
+  if (req.user.photo !== 'default.jpg') {
+    const path = `public/img/users/${req.user.photo}`;
+
+    fs.unlink(path, err => {
+      if (err) {
+        return next(new AppError('unexpected error.', 500));
+      }
+    });
+  }
+
+  next();
+};
+
 const resizeAndSaveToDisk = (req, res, next) => {
   req.file.filename = `user-${req.user._id}-${Date.now()}.jpeg`;
 
@@ -78,6 +93,7 @@ module.exports = {
   deleteUser,
   setParamsId,
   uploadUserPhoto,
+  removePreviousImageOnFs,
   resizeAndSaveToDisk,
   savePhotoOnUserRecord,
 };

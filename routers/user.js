@@ -14,6 +14,7 @@ const {
   deleteUser,
   setParamsId,
   uploadUserPhoto,
+  removePreviousImageOnFs,
   savePhotoOnUserRecord,
   resizeAndSaveToDisk,
 } = require('../controllers/user');
@@ -36,6 +37,7 @@ router.patch('/admin/update', updateSettings);
 router.patch(
   '/admin/update/photo',
   uploadUserPhoto,
+  removePreviousImageOnFs,
   resizeAndSaveToDisk,
   savePhotoOnUserRecord
 );
