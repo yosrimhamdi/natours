@@ -85,7 +85,15 @@ const tourSchema = new mongoose.Schema(
       type: String,
       required: [true, 'A tour must have a cover image'],
     },
-    images: [String],
+    images: {
+      type: Array,
+      validate: {
+        validator(images) {
+          return images.length === 3;
+        },
+        message: 'you need to specify 3 imgaes for this tour.',
+      },
+    },
     createdAt: {
       type: Date,
       default: Date.now(),
