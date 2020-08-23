@@ -55,7 +55,7 @@ const upload = multer({ storage, fileFilter });
 const uploadUserPhoto = upload.single('photo');
 
 const resizeAndSaveToDisk = (req, res, next) => {
-  req.file.filename = `user-${req.user._id}.jpeg`;
+  req.file.filename = `user-${req.user._id}-${Date.now()}.jpeg`;
 
   sharp(req.file.buffer)
     .resize(500, 500)
