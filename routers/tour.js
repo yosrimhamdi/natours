@@ -2,6 +2,8 @@ const express = require('express');
 const {
   getAllTours,
   getTourById,
+  uploadTourImages,
+  resizeAndSaveTourImageOnFs,
   createTour,
   updateTour,
   deleteTour,
@@ -17,7 +19,16 @@ const router = express.Router();
 
 router.use('/:id/reviews', reviewRouter);
 
-router.route('/').get(getAllTours).post(requireLogIn, restrictTo('admin'), createTour);
+router
+  .route('/')
+  .get(getAllTours)
+  .post(
+    requireLogIn,
+    restrictTo('admin'),
+    uploadTourImages,
+    resizeAndSaveTourImageOnFs,
+    createTour
+  );
 
 router.route('/top-5-cheap').get(aliasTop5, getAllTours);
 

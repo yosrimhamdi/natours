@@ -1,7 +1,13 @@
+const multer = require('multer');
+const sharp = require('sharp');
+const slugify = require('slugify');
+const mkdirp = require('mkdirp');
+
 const Tour = require('../models/tour');
 const Distructure = require('../utils/distructure');
 const catchAsync = require('../errors/catchAsync');
 const { createOne, updateOne, deleteOne } = require('./factory');
+const AppError = require('../errors/appError');
 
 const aliasTop5 = (req, res, next) => {
   req.query = {
@@ -68,9 +74,52 @@ const getTourStats = catchAsync(async (req, res) => {
   });
 });
 
+const storage = multer.memoryStorage();
+
+const fileFilter = (req, file, cb) => {
+  let err = null;
+  const isImage = file.mimetype.startsWith('image');
+
+  if (!isImage) {
+    err = new AppError('not image.');
+  }
+
+  cb(err, isImage);
+};
+
+const upload = multer({ storage, fileFilter });
+
+const uploadTourImages = upload.fields([
+  { name: 'images', maxCount: 3 },
+  { name: 'imageCover', maxCount: 1 },
+]);
+
+const resizeAndSaveTourImageOnFs = catchAsync(async (req, res, next) => {
+  const {
+    imageCover: [imageCover],
+    images,
+  } = req.files;
+
+  const path = `public/img/tours/${slugify(req.body.name, { lower: true })}`;
+
+  await mkdirp(path);
+
+  sharp(imageCover.buffer).toFormat('jpeg').toFile(`${path}/cover.jpeg`);
+
+  images.forEach(({ buffer }, i) => {
+    sharp(buffer)
+      .toFormat('jpeg')
+      .toFile(`${path}/img-${i + 1}.jpeg`);
+  });
+
+  next();
+});
+
 module.exports = {
   getAllTours,
   getTourById,
+  uploadTourImages,
+  resizeAndSaveTourImageOnFs,
   createTour,
   updateTour,
   deleteTour,
