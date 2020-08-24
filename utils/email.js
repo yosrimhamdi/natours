@@ -12,11 +12,10 @@ const {
 } = process.env;
 
 class Email {
-  constructor(user, url) {
+  constructor(user) {
     this.from = `Yosri Mhamdi <${EMAIL_FROM}>`;
     this.to = user.email;
     this.userName = user.name.split(' ')[0];
-    this.url = url;
     this.transport = this.createTransport();
   }
 
@@ -36,7 +35,6 @@ class Email {
   async send(template, subject) {
     const html = pug.renderFile(`views/${template}.pug`, {
       userName: this.userName,
-      url: this.url,
       subject,
     });
 
