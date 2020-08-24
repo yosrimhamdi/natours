@@ -3,10 +3,10 @@ const AppError = require('../errors/appError');
 const User = require('../models/user');
 const catchAsync = require('../errors/catchAsync');
 const { createToken, verifyToken } = require('../utils/jwt');
-const sendMail = require('../utils/email');
+const Email = require('../utils/email');
 
 const logInUser = (res, statusCode, userId) => {
-  const { JWT_COOKIE_EXPIRES_IN, NODE_ENV } = process.env;
+  const { JWT_COOKIE_EXPIRES_IN } = process.env;
 
   const token = createToken({ id: userId });
 
@@ -24,6 +24,8 @@ const logInUser = (res, statusCode, userId) => {
 
 const signup = catchAsync(async (req, res) => {
   const user = await User.create(req.body);
+
+  await new Email(user).sendWelcome();
 
   logInUser(res, 201, user._id);
 });
@@ -143,7 +145,7 @@ const restrictTo = (...roles) => {
 };
 
 const forgotPassword = catchAsync(async (req, res, next) => {
-  const user = await User.findOne({ email: req.body.email });
+  /* const user = await User.findOne({ email: req.body.email });
 
   if (!user) {
     return next(new AppError('invalid email.', 404));
@@ -172,7 +174,7 @@ const forgotPassword = catchAsync(async (req, res, next) => {
   res.status(200).json({
     status: 'success',
     message: 'check your email to get the reset link.',
-  });
+  }); */
 });
 
 const resetPassword = catchAsync(async (req, res, next) => {
